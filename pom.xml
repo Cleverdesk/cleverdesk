@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Cleverdesk, a modular helpdesk
+  ~
+  ~   Copyright (C) 2016 Jonas Kuche
+  ~   Copyright (C) 2016 Jonas Franz
+  ~   Copyright (C) 2016 Konrad Langenberg
+  ~
+  ~   This file is part of Cleverdesk.
+  ~
+  ~   Cleverdesk is free software: you can redistribute it and/or modify it under the terms of the
+  ~   GNU General Public License as published by the Free Software Foundation, either version 2 of the
+  ~   License, or (at your option) any later version.
+  ~
+  ~   Cleverdesk is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+  ~   without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  ~
+  ~   See the GNU General Public License for more details. You should have received a copy of the GNU
+  ~   General Public License along with Cleverdesk. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -7,6 +28,74 @@
     <groupId>net.cleverdesk</groupId>
     <artifactId>cleverdesk</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Cleverdesk</name>
+    <url>https://cleverdesk.net</url>
+
+    <description>The Backend of the cleverdesk support system</description>
+
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE (v3)</name>
+            <url>http://www.gnu.org/licenses/gpl.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/Cleverdesk/cleverdesk.git</url>
+    </scm>
+
+    <properties>
+        <kotlin.version>1.0.1-2</kotlin.version>
+    </properties>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <source>src/main/java</source>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <source>src/test/java</source>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+    </dependencies>
 
 
 </project>
