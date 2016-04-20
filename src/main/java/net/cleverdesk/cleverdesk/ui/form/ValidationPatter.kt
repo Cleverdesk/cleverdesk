@@ -13,15 +13,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.cleverdesk.cleverdesk.launcher
+package net.cleverdesk.cleverdesk.ui.form
 
-class Launcher {
-    public fun start() {
+/**
+ * Created by bootslock on 20.04.16.
+ */
+class ValidationPatter(regex: String, error: String) {
 
-    }
+    public val regex: String = regex
+    public val error: String = error
 
-    public fun shutdown() {
-
-    }
 
 }

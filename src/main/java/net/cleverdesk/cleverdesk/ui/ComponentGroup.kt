@@ -13,15 +13,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.cleverdesk.cleverdesk.launcher
 
-class Launcher {
-    public fun start() {
+package net.cleverdesk.cleverdesk.ui
 
-    }
+/**
+ * Created by bootslock on 20.04.16.
+ */
+interface ComponentGroup : Component {
 
-    public fun shutdown() {
+    public fun addComponent(component: Component)
+    public fun removeComponent(component: Component)
 
-    }
-
+    fun getComponents(): List<Component>
 }

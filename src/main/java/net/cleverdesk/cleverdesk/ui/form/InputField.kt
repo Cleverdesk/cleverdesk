@@ -13,15 +13,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.cleverdesk.cleverdesk.launcher
+package net.cleverdesk.cleverdesk.ui.form
 
-class Launcher {
-    public fun start() {
 
-    }
+class InputField(override var input_name: String, override val name: String = "InputField") : AbstractInputField<String>() {
 
-    public fun shutdown() {
-
-    }
+    public var max: Int? = null
+    public var validation_pattern: ValidationPatter? = null
 
 }

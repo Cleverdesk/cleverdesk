@@ -13,15 +13,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.cleverdesk.cleverdesk.launcher
+package net.cleverdesk.cleverdesk.ui.form
 
-class Launcher {
-    public fun start() {
+import net.cleverdesk.cleverdesk.ui.Component
 
-    }
 
-    public fun shutdown() {
+abstract class AbstractInputField<T>() : Component {
 
-    }
+    public abstract var input_name: String
+
+    public var value: T? = null
+
+    public var display_name: T? = null
 
 }
+
