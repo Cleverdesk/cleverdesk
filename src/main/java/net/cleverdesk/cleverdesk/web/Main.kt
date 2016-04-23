@@ -20,7 +20,7 @@ package net.cleverdesk.cleverdesk.web
 
 
 import spark.Spark.*
-object HelloWorld {
+object Main {
     @JvmStatic fun main(args:Array<String>) {
         get("/", { req, res->
             Response(200, "Welcome to Cleverdesk").to_json()
