@@ -22,6 +22,14 @@ package net.cleverdesk.cleverdesk.web
 import spark.Spark.*
 object Main {
     @JvmStatic fun main(args:Array<String>) {
+        var port = System.getenv("PORT")
+        if (port == null) {
+            port = System.getenv("port")
+            if (port == null) {
+                port = "8080"
+            }
+        }
+        port(Integer.parseInt(port))
         get("/", { req, res->
             Response(200, "Welcome to Cleverdesk").to_json()
         })
