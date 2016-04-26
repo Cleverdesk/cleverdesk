@@ -15,11 +15,10 @@
 import com.google.gson.Gson
 import net.cleverdesk.cleverdesk.ui.UI
 import net.cleverdesk.cleverdesk.ui.form.InputField
+import net.cleverdesk.cleverdesk.ui.form.RadioButton
+import net.cleverdesk.cleverdesk.ui.form.RadioButtonGroup
 import org.junit.Test
 
-/**
- * Created by bootslock on 26.04.16.
- */
 class UITest {
     @Test
     public fun testIt() {
@@ -29,6 +28,20 @@ class UITest {
         vorname.max = 20
         vorname.input_name = "vorname"
         ui.addComponent(vorname)
+
+        val group = RadioButtonGroup()
+        group.input_name = "abo"
+        val ja = RadioButton()
+        ja.label = "Ja"
+        ja.value = "yes"
+        val nein = RadioButton()
+        nein.label = "Ja"
+        nein.value = "no"
+
+        group.addComponent(ja)
+        group.addComponent(nein)
+
+        ui.addComponent(group)
 
         System.out.println(Gson().toJson(ui))
     }
