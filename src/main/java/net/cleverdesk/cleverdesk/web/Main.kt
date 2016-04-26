@@ -33,5 +33,9 @@ object Main {
         get("/", { req, res->
             Response(200, "Welcome to Cleverdesk").to_json()
         })
+        get("*", { req, res->
+            res.status(404)
+            Response(404, "Not Found").to_json()
+        })
     }
 }
