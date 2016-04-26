@@ -16,7 +16,12 @@
 package net.cleverdesk.cleverdesk.ui.form
 
 
-class InputField(override var input_name: String, override val name: String = "InputField") : AbstractInputField<String>() {
+class InputField() : AbstractInputField<String>() {
+    override var input_name: String = ""
+
+        
+    override val name: String = "InputField"
+
 
     public var max: Int? = null
     public var validation_pattern: ValidationPatter? = null
