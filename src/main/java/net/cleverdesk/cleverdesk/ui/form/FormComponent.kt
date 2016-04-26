@@ -12,18 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package net.cleverdesk.cleverdesk.ui.form
 
-abstract class AbstractInputField<T>() : FormComponent() {
+import net.cleverdesk.cleverdesk.ui.Component
 
-    public abstract var input_name: String
-
-    public var value: T? = null
-
-    public var placeholder: T? = null
-
-    public var label: String? = null
-
+abstract class FormComponent : Component {
+    public var enabled: Boolean = true
 }
-

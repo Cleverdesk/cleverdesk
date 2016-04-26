@@ -12,18 +12,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import com.google.gson.Gson
+import net.cleverdesk.cleverdesk.ui.UI
+import net.cleverdesk.cleverdesk.ui.form.InputField
+import org.junit.Test
 
-package net.cleverdesk.cleverdesk.ui.form
+/**
+ * Created by bootslock on 26.04.16.
+ */
+class UITest {
+    @Test
+    public fun testIt() {
+        val ui = UI()
+        val vorname = InputField()
+        vorname.placeholder = "Vorname eingeben"
+        vorname.max = 20
+        vorname.input_name = "vorname"
+        ui.addComponent(vorname)
 
-abstract class AbstractInputField<T>() : FormComponent() {
-
-    public abstract var input_name: String
-
-    public var value: T? = null
-
-    public var placeholder: T? = null
-
-    public var label: String? = null
-
+        System.out.println(Gson().toJson(ui))
+    }
 }
-
