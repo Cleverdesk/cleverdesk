@@ -21,7 +21,7 @@ class InputField() : AbstractInputField<String>() {
 
         
     override val name: String = "InputField"
-
+    var type: String = "text"
 
     public var max: Int? = null
     public var validation_pattern: ValidationPatter? = null

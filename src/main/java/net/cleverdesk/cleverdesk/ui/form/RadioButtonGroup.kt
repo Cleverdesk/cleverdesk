@@ -21,7 +21,7 @@ import java.util.*
 /**
  * Created by bootslock on 26.04.16.
  */
-class RadioButtonGroup : AbstractInputField<Int>(), ComponentGroup {
+abstract class RadioButtonGroup : AbstractInputField<Int>(), ComponentGroup {
 
     private val radioButtons: LinkedList<RadioButton> = LinkedList()
 
