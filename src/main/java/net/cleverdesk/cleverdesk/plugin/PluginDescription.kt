@@ -16,14 +16,15 @@
 package net.cleverdesk.cleverdesk.plugin
 
 
-@Target(AnnotationTarget.CLASS)
-@Retention(AnnotationRetention.SOURCE)
-@MustBeDocumented
-annotation class Description(val name: String, val description: String)
+interface PluginDescription {
+    public val name: String
+    public val description: String
+    public val author: String
+}
+
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
 @MustBeDocumented
-annotation class Author(val name: String, val url: String)
-
+annotation class PluginInfo(val name: String, val description: String, val author: String)
 

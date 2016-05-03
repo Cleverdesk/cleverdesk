@@ -12,21 +12,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package net.cleverdesk.cleverdesk.ui
 
-package net.cleverdesk.cleverdesk.launcher
-
-import net.cleverdesk.cleverdesk.plugin.Plugin
-import java.util.*
-
-class Launcher {
-
-    public val plugins: List<Plugin> = LinkedList<Plugin>()
-
-    public fun start() {
-
-    }
-
-    public fun shutdown() {
-
-    }
-}
+/**
+ * Created by jonas on 23.04.16.
+ */
+annotation class Attr(val name: String)
