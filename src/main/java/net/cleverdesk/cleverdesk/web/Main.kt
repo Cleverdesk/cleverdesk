@@ -19,9 +19,10 @@ package net.cleverdesk.cleverdesk.web
  */
 
 
+import net.cleverdesk.cleverdesk.launcher.Launcher
 import spark.Spark.*
 object Main {
-    @JvmStatic fun main(args:Array<String>) {
+    @JvmStatic fun main(launcher:Launcher) {
         var port = System.getenv("PORT")
         if (port == null) {
             port = System.getenv("port")
@@ -32,6 +33,9 @@ object Main {
         port(Integer.parseInt(port))
         get("/", { req, res->
             Response(200, "Welcome to Cleverdesk").to_json()
+        })
+        get("/pages", { req, res ->
+            Response(200, launcher.plugins).to_json()
         })
         get("*", { req, res->
             res.status(404)

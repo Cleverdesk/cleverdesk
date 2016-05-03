@@ -115,7 +115,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>net.cleverdesk.cleverdesk.web.Main</mainClass>
+                            <mainClass>net.cleverdesk.cleverdesk.CleverdeskMainKt.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
