@@ -12,7 +12,7 @@ import net.cleverdesk.cleverdesk.ui.form.InputField
 @PluginInfo(author = "Jonas", name = "Test-Plugin", description = "A cool Test-Plugin with many features! ")
 class PluginExample : Plugin() {
     override fun enable() {
-        val coolPage =
+        pages + CoolPage()
     }
 
     override fun disable() {
