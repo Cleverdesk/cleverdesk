@@ -25,8 +25,8 @@ abstract open class Plugin() {
 
     public val launcher: Launcher? = null
     public val listenerManager: ListenerManager? = launcher?.listenerManager
-    public val description: PluginDescription? = null
-    public val pages: List<Page> = LinkedList<Page>()
+    public var description: PluginDescription? = null
+    public val pages: MutableList<Page> = LinkedList<Page>()
 
 
     public open fun enable() {
