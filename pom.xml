@@ -109,6 +109,29 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>net.cleverdesk.cleverdesk.CleverdeskMainKt.Main</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <pluginRepositories>
@@ -136,6 +159,11 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>LATEST</version>
+        </dependency>
+        <dependency>
+        	<groupId>com.sparkjava</groupId>
+        	<artifactId>spark-core</artifactId>
+        	<version>2.3</version>
         </dependency>
     </dependencies>
 
