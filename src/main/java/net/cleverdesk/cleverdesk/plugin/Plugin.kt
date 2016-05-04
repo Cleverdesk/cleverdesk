@@ -17,22 +17,23 @@
 package net.cleverdesk.cleverdesk.plugin
 
 import net.cleverdesk.cleverdesk.launcher.Launcher
+import net.cleverdesk.cleverdesk.listener.ListenerManager
 import java.util.*
 
-abstract class Plugin(launcher: Launcher) {
+abstract open class Plugin() {
 
-    public val launcher: Launcher = launcher
-    public val listenerManager: Launcher = launcher
+
+    public val launcher: Launcher? = null
+    public val listenerManager: ListenerManager? = launcher?.listenerManager
     public val description: PluginDescription? = null
     public val pages: List<Page> = LinkedList<Page>()
 
 
-
-    public fun enable() {
+    public open fun enable() {
 
     }
 
-    public fun disable() {
+    public open fun disable() {
 
     }
 

@@ -15,12 +15,15 @@
 
 package net.cleverdesk.cleverdesk.launcher
 
+import net.cleverdesk.cleverdesk.listener.Listener
+import net.cleverdesk.cleverdesk.listener.ListenerManager
 import net.cleverdesk.cleverdesk.plugin.Plugin
 import java.util.*
 
 class Launcher {
 
     public val plugins: List<Plugin> = LinkedList<Plugin>()
+    public val listenerManager: ListenerManager = object : LinkedList<Listener>(), ListenerManager {}
 
     public fun start() {
 
