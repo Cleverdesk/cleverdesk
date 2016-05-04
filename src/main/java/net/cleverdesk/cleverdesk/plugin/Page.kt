@@ -22,5 +22,6 @@ import net.cleverdesk.cleverdesk.ui.UI
  * Created by jonas on 03.05.16.
  */
 interface Page {
+    public val name: String
     public fun response(user: User, request: UIRequest): UI
 }
