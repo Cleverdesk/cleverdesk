@@ -22,14 +22,19 @@ import java.util.*
 
 class Launcher {
 
-    public val plugins: List<Plugin> = LinkedList<Plugin>()
+    public val plugins: MutableList<Plugin> = LinkedList<Plugin>()
     public val listenerManager: ListenerManager = object : LinkedList<Listener>(), ListenerManager {}
 
     public fun start() {
-
+        for (plugin in plugins) {
+            plugin.enable()
+        }
     }
 
     public fun shutdown() {
+        for (plugin in plugins) {
+            plugin.disable()
+        }
 
     }
 }

@@ -33,7 +33,8 @@ import java.util.*
 /**
  * Created by bootslock on 20.04.16.
  */
-class UI(override val name: String = "UI") : ComponentGroup {
+class UI() : ComponentGroup {
+    override val name: String = "UI"
     private val components: LinkedList<Component> = LinkedList<Component>()
 
     override fun addComponent(component: Component) {
