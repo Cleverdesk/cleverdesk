@@ -12,24 +12,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package net.cleverdesk.cleverdesk.plugin
 
-package net.cleverdesk.cleverdesk.launcher
+import net.cleverdesk.cleverdesk.UIRequest
+import net.cleverdesk.cleverdesk.User
+import net.cleverdesk.cleverdesk.ui.UI
 
-import net.cleverdesk.cleverdesk.listener.Listener
-import net.cleverdesk.cleverdesk.listener.ListenerManager
-import net.cleverdesk.cleverdesk.plugin.Plugin
-import java.util.*
-
-class Launcher {
-
-    public val plugins: List<Plugin> = LinkedList<Plugin>()
-    public val listenerManager: ListenerManager = object : LinkedList<Listener>(), ListenerManager {}
-
-    public fun start() {
-
-    }
-
-    public fun shutdown() {
-
-    }
+/**
+ * Created by jonas on 03.05.16.
+ */
+interface Page {
+    public val name: String
+    public fun response(user: User, request: UIRequest): UI
 }

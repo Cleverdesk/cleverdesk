@@ -12,37 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import com.google.gson.Gson
-import net.cleverdesk.cleverdesk.ui.UI
-import net.cleverdesk.cleverdesk.ui.form.InputField
-import net.cleverdesk.cleverdesk.ui.form.RadioButton
-import net.cleverdesk.cleverdesk.ui.form.RadioButtonGroup
+import net.cleverdesk.cleverdesk.launcher.Launcher
 import org.junit.Test
 
 class UITest {
     @Test
     public fun testIt() {
-        val ui = UI()
-        val vorname = InputField()
-        vorname.placeholder = "Vorname eingeben"
-        vorname.max = 20
-        vorname.input_name = "vorname"
-        ui.addComponent(vorname)
-
-        val group = RadioButtonGroup()
-        group.input_name = "abo"
-        val ja = RadioButton()
-        ja.label = "Ja"
-        ja.value = "yes"
-        val nein = RadioButton()
-        nein.label = "Ja"
-        nein.value = "no"
-
-        group.addComponent(ja)
-        group.addComponent(nein)
-
-        ui.addComponent(group)
-
-        System.out.println(Gson().toJson(ui))
+        val test_launcher: Launcher = Launcher()
+        test_launcher.plugins + PluginExample()
+        test_launcher.start()
     }
 }
