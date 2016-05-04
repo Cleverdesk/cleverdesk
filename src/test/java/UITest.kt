@@ -20,5 +20,6 @@ class UITest {
     public fun testIt() {
         val test_launcher: Launcher = Launcher()
         test_launcher.plugins + PluginExample()
+        test_launcher.start()
     }
 }
