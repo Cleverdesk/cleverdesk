@@ -15,7 +15,9 @@
 
 package net.cleverdesk.cleverdesk
 
+import net.cleverdesk.cleverdesk.launcher.Launcher
+
 
 fun main(args: Array<String>) {
-
+    Launcher().start()
 }

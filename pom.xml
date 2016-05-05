@@ -28,12 +28,13 @@
     <groupId>net.cleverdesk</groupId>
     <artifactId>cleverdesk</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <packaging>jar</packaging>
 
     <name>Cleverdesk</name>
     <url>https://cleverdesk.net</url>
 
-    <description>The Backend of the cleverdesk support system</description>
+    <description>The backend of the cleverdesk support system</description>
 
     <licenses>
         <license>
@@ -54,6 +55,8 @@
 
     <build>
         <plugins>
+
+            <!--Default-Plugins-->
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
@@ -85,6 +88,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!--Code-Style-Plugins-->
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
@@ -109,29 +114,30 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!--Export-Plugins-->
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.6</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>net.cleverdesk.cleverdesk.CleverdeskMainKt.Main</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
+                    <transformers>
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>net.cleverdesk.cleverdesk.CleverdeskMainKt</mainClass>
+                        </transformer>
+                    </transformers>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>shade</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
     <pluginRepositories>
@@ -165,6 +171,7 @@
         	<artifactId>spark-core</artifactId>
         	<version>2.3</version>
         </dependency>
+
     </dependencies>
 
 

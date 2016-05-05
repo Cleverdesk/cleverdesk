@@ -29,16 +29,10 @@ import spark.Spark.port
 import java.util.*
 
 object WebServer {
-    @JvmStatic fun start(launcher: Launcher) {
+    @JvmStatic fun start(launcher: Launcher, port: Int) {
 
-        var port = System.getenv("PORT")
-        if (port == null) {
-            port = System.getenv("port")
-            if (port == null) {
-                port = "8080"
-            }
-        }
-        port(Integer.parseInt(port))
+
+        port(port)
         get("/", { req, res ->
             Response(200, "Welcome to Cleverdesk").to_json()
         })

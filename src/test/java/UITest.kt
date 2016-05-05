@@ -13,7 +13,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import net.cleverdesk.cleverdesk.launcher.Launcher
-import net.cleverdesk.cleverdesk.web.WebServer
 import org.junit.Test
 
 class UITest {
@@ -23,7 +22,6 @@ class UITest {
         val test_launcher: Launcher = Launcher()
         test_launcher.plugins.add(PluginExample())
         test_launcher.start()
-        WebServer.start(launcher = test_launcher)
-        Thread.sleep(80000)
+        Thread.sleep(2000)
     }
 }
