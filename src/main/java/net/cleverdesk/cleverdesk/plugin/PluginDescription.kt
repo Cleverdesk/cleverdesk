@@ -24,7 +24,7 @@ interface PluginDescription {
 
 
 @Target(AnnotationTarget.CLASS)
-@Retention(AnnotationRetention.SOURCE)
+@Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
 annotation class PluginInfo(val name: String, val description: String, val author: String)
 

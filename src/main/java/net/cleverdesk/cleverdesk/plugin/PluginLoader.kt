@@ -27,13 +27,16 @@ import java.util.jar.JarFile
 class PluginLoader {
     public fun loadPlugins(launcher: Launcher): List<Plugin> {
         val plugin_folder = File(launcher.dataFolder, "plugins/")
+        println("Loading plugins from ${plugin_folder.absolutePath}")
 
         val plugins: MutableList<Plugin> = LinkedList<Plugin>()
 
         for (jar_name: String in plugin_folder.list(FilenameFilter { file, name -> name.endsWith(".jar", true) })) {
+            println("Found ${jar_name}")
             val jar: JarFile = JarFile(File(plugin_folder, jar_name))
             val entries: Enumeration<JarEntry> = jar.entries()
             val urls: Array<URL> = arrayOf(URL("jar:file:${File(plugin_folder, jar_name).absolutePath}!/"))
+            println("-> ${urls}")
             val cl: URLClassLoader = URLClassLoader.newInstance(urls)
 
             val classes: HashMap<String, Class<*>> = LinkedHashMap();
@@ -52,10 +55,14 @@ class PluginLoader {
                 val c: Class<*> = cl.loadClass(className)
                 classes.put(className, c)
 
-                if (c.isAssignableFrom(Plugin::class.java)) {
+                println("Loading: ${c.name}")
+
+                if (Plugin::class.java.isAssignableFrom(c)) {
                     if (plugin != null) {
                         continue
                     }
+
+                    println("Found Plugin-Instance: ${c.name}")
                     plugin = c.newInstance() as Plugin
                 }
 
@@ -65,7 +72,7 @@ class PluginLoader {
 
                 var plInfo: PluginInfo? = null
 
-                for (anno in Plugin::class.annotations) {
+                for (anno in plugin.javaClass.annotations) {
                     if (anno is PluginInfo) {
                         plInfo = anno as PluginInfo
                     }
@@ -73,10 +80,12 @@ class PluginLoader {
                 }
 
                 if (plInfo == null) {
+
+                    println("Error can't find @PluginInfo")
                     continue
                 }
 
-                plugin.description = object : PluginDescription {
+                plugin!!.description = object : PluginDescription {
                     override val name: String
                         get() = (plInfo as PluginInfo).name
                     override val description: String
@@ -84,6 +93,8 @@ class PluginLoader {
                     override val author: String
                         get() = (plInfo as PluginInfo).author
                 }
+
+                println("Loaded ${(plugin.description as PluginDescription).name}")
 
                 plugins.add(plugin)
 

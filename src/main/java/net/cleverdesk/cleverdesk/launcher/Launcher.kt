@@ -18,34 +18,48 @@ package net.cleverdesk.cleverdesk.launcher
 import net.cleverdesk.cleverdesk.listener.Listener
 import net.cleverdesk.cleverdesk.listener.ListenerManager
 import net.cleverdesk.cleverdesk.plugin.Plugin
+import net.cleverdesk.cleverdesk.plugin.PluginLoader
 import net.cleverdesk.cleverdesk.web.WebServer
 import spark.Spark
 import java.io.File
 import java.util.*
-import java.util.logging.Logger
 
 class Launcher {
 
     public val plugins: MutableList<Plugin> = LinkedList<Plugin>()
 
-    companion object {
-        val LOG = Logger.getLogger(Launcher.javaClass.name)
-    }
+
     public val listenerManager: ListenerManager = object : LinkedList<Listener>(), ListenerManager {}
 
-
+    /**
+     * The folder, where all data (like plugins) are.
+     */
     public val dataFolder: File
         get() {
             return File("${Launcher::class.java.protectionDomain.codeSource.location.toURI().path.replace(".jar", "")}/")
         }
 
     public fun start() {
-        LOG.info("License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>")
-        LOG.info("This is free software: you are free to change and redistribute it.")
-        LOG.info("There is NO WARRANTY, to the extent permitted by law.")
+        println("License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>")
+        println("This is free software: you are free to change and redistribute it.")
+        println("There is NO WARRANTY, to the extent permitted by law.")
+
+        //On ^C execute shutdown()
         Runtime.getRuntime().addShutdownHook(Thread(Runnable { shutdown() }))
+
+        //Create Folders (plugins etc.)
         if (!dataFolder.exists()) dataFolder.mkdirs()
         if (!File(dataFolder, "plugins/").exists()) File(dataFolder, "plugins/").mkdir()
+
+
+        //Be sure that theire is no duplicate
+        for (plugin in plugins) {
+            plugin.disable()
+        }
+        plugins.clear()
+        //Loading Plugins from plugins/*.jar
+        plugins.addAll(PluginLoader().loadPlugins(this))
+        //Enabling all plugins
         for (plugin in plugins) {
             plugin.enable()
         }
@@ -57,8 +71,8 @@ class Launcher {
             }
         }
 
-        LOG.info("Starting WebServer on Port ${port}")
-
+        println("Starting WebServer on Port ${port}")
+        //Start Web-Server
         WebServer.start(this, port.toInt())
 
     }
@@ -67,8 +81,8 @@ class Launcher {
         for (plugin in plugins) {
             plugin.disable()
         }
+        println("Backend stopped")
         Spark.stop()
-        LOG.info("Backend stopped")
 
     }
 }

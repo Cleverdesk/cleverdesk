@@ -20,7 +20,7 @@ import net.cleverdesk.cleverdesk.launcher.Launcher
 import net.cleverdesk.cleverdesk.listener.ListenerManager
 import java.util.*
 
-abstract open class Plugin() {
+open class Plugin() {
 
 
     public val launcher: Launcher? = null
