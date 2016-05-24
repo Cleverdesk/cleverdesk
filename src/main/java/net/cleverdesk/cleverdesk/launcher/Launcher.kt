@@ -15,6 +15,7 @@
 
 package net.cleverdesk.cleverdesk.launcher
 
+import net.cleverdesk.cleverdesk.database.Database
 import net.cleverdesk.cleverdesk.listener.Listener
 import net.cleverdesk.cleverdesk.listener.ListenerManager
 import net.cleverdesk.cleverdesk.plugin.Plugin
@@ -27,6 +28,8 @@ import java.util.*
 class Launcher {
 
     public val plugins: MutableList<Plugin> = LinkedList<Plugin>()
+
+    public var database: Database<*>? = null
 
 
     public val listenerManager: ListenerManager = object : LinkedList<Listener>(), ListenerManager {}

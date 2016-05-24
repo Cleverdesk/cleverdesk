@@ -12,32 +12,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package net.cleverdesk.cleverdesk.database
 
-
-package net.cleverdesk.cleverdesk.plugin
-
-import net.cleverdesk.cleverdesk.database.Database
 import net.cleverdesk.cleverdesk.launcher.Launcher
-import net.cleverdesk.cleverdesk.listener.ListenerManager
-import java.util.*
+import net.cleverdesk.cleverdesk.plugin.Plugin
 
-open class Plugin() {
+/**
+ * Created by schulerlabor on 24.05.16.
+ */
+interface Database<S> {
+
+    var launcher: Launcher?
+
+    public fun upload(from: DatabaseObject)
+    public fun upload(target: S, indices: S, plugin: Plugin)
 
 
-    public val launcher: Launcher? = null
-    public val listenerManager: ListenerManager? = launcher?.listenerManager
-    public var description: PluginDescription? = null
-    public val pages: MutableList<Page> = LinkedList<Page>()
-    public val database: Database<*> ?
-        get() = launcher?.database
+    public fun download(into: DatabaseObject, at: DatabaseObject)
+    public fun download(into: DatabaseObject, at: S)
+    public fun download(where: DatabaseObject): Array<S>
+    public fun download(indices: S, plugin: Plugin): Array<S>
 
+    public fun delete(target: DatabaseObject)
+    public fun delete(indices: S, plugin: Plugin)
 
-    public open fun enable() {
-
-    }
-
-    public open fun disable() {
-
-    }
 
 }
