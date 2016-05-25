@@ -26,7 +26,11 @@ import java.util.jar.JarFile
 
 class PluginLoader {
     public fun loadPlugins(launcher: Launcher): List<Plugin> {
-        val plugin_folder = File(launcher.dataFolder, "plugins/")
+        return loadPlugins(launcher, "plugins")
+    }
+
+    public fun loadPlugins(launcher: Launcher, suffix: String): List<Plugin> {
+        val plugin_folder = File(launcher.dataFolder, "${suffix}/")
         println("Loading plugins from ${plugin_folder.absolutePath}")
 
         val plugins: MutableList<Plugin> = LinkedList<Plugin>()

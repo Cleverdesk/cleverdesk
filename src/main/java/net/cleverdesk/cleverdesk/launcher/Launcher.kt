@@ -53,6 +53,7 @@ class Launcher {
         //Create Folders (plugins etc.)
         if (!dataFolder.exists()) dataFolder.mkdirs()
         if (!File(dataFolder, "plugins/").exists()) File(dataFolder, "plugins/").mkdir()
+        if (!File(dataFolder, "drivers/").exists()) File(dataFolder, "drivers/").mkdir()
 
 
         //Be sure that theire is no duplicate
@@ -60,6 +61,8 @@ class Launcher {
             plugin.disable()
         }
         plugins.clear()
+        //Loading Plugins from drivers/
+        plugins.addAll(PluginLoader().loadPlugins(this, "drivers"))
         //Loading Plugins from plugins/*.jar
         plugins.addAll(PluginLoader().loadPlugins(this))
         //Enabling all plugins

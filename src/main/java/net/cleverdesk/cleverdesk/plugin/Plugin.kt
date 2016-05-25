@@ -19,6 +19,8 @@ package net.cleverdesk.cleverdesk.plugin
 import net.cleverdesk.cleverdesk.database.Database
 import net.cleverdesk.cleverdesk.launcher.Launcher
 import net.cleverdesk.cleverdesk.listener.ListenerManager
+import net.cleverdesk.cleverdesk.web.escape
+import java.io.File
 import java.util.*
 
 open class Plugin() {
@@ -28,6 +30,8 @@ open class Plugin() {
     public val listenerManager: ListenerManager? = launcher?.listenerManager
     public var description: PluginDescription? = null
     public val pages: MutableList<Page> = LinkedList<Page>()
+    public val dataDir: File ?
+        get() = File(launcher?.dataFolder?.absolutePath + "${description?.name?.escape()}/")
     public val database: Database<*> ?
         get() = launcher?.database
 
