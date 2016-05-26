@@ -17,11 +17,14 @@ package net.cleverdesk.cleverdesk.ui.general
 import net.cleverdesk.cleverdesk.ui.Component
 
 /**
- * Created by matthias on 03.05.16.
+ * A dynamic loaded image.
  */
 class Image() : Component {
     override val name: String = "Image"
 
+    /**
+     * The URL of the Image. (Supported formats: PNG, JPG, GIF, TIFF)
+     */
     var url: String = ""
 
 }

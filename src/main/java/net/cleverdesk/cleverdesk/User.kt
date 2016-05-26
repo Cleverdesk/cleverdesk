@@ -15,7 +15,7 @@
 package net.cleverdesk.cleverdesk
 
 /**
- * Created by jonas on 03.05.16.
+ * TODO
  */
 class User {
 }

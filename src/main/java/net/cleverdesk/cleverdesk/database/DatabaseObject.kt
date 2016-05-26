@@ -24,7 +24,7 @@ abstract class DatabaseObject {
 
     public abstract val plugin: Plugin
 
-    public var toMap: HashMap<String, Any>
+    public var toMap: Map<String, Any?>?
         get() {
             val fields = LinkedHashMap<String, Any>()
             for (field in this.javaClass.fields) {
@@ -37,6 +37,10 @@ abstract class DatabaseObject {
             return fields
         }
         set(value) {
+            if (value == null) {
+                //Nothing to restore
+                return
+            }
             for (key in value.keys) {
                 val value = value.get(key)
                 try {
@@ -44,13 +48,19 @@ abstract class DatabaseObject {
                     field.isAccessible = true
                     field.set(this, value)
                 } catch(e: Exception) {
-                    println("Error while restoring DBObject. Key=${key} Value=${value}")
+                    println("Error while restoring DatabaseObject. Key=${key} Value=${value}")
                     return
                 }
 
             }
         }
-    public abstract val indices: HashMap<String, Any>
+
+    public val indices: Map<String, Any?>?
+        get() {
+            return plugin.database?.defaultIndicesOf(this)
+        }
+
+    var index: Any? = null
 
     annotation class Database()
 

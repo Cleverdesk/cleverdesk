@@ -16,10 +16,14 @@
 package net.cleverdesk.cleverdesk.ui
 
 /**
- * Created by bootslock on 20.04.16.
+ * A component is UI-class which stands for a ui-element like a Label. A component could be displayed on all frontend native if they
+ * support the component.
  */
 interface Component {
 
+    /**
+     * The name is the identifier of component. Every name should be *unique*.
+     */
     public val name: String
 
 

@@ -27,7 +27,7 @@
 
     <groupId>net.cleverdesk</groupId>
     <artifactId>cleverdesk</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
@@ -50,6 +50,7 @@
 
     <properties>
         <kotlin.version>1.0.1-2</kotlin.version>
+        <dokka.version>0.9.8</dokka.version>
     </properties>
 
 
@@ -85,6 +86,19 @@
                                 <source>src/test/java</source>
                             </sourceDirs>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jetbrains.dokka</groupId>
+                <artifactId>dokka-maven-plugin</artifactId>
+                <version>${dokka.version}</version>
+                <executions>
+                    <execution>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>dokka</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

@@ -31,7 +31,7 @@ package net.cleverdesk.cleverdesk.ui
 import java.util.*
 
 /**
- * Created by bootslock on 20.04.16.
+ * The UI bundels all UI [Component]s on a [Page]/[net.cleverdesk.cleverdesk.web.Response].
  */
 class UI() : ComponentGroup {
     override val name: String = "UI"

@@ -19,12 +19,15 @@ import com.mongodb.DB
 import com.mongodb.DBObject
 import net.cleverdesk.cleverdesk.launcher.Launcher
 import net.cleverdesk.cleverdesk.plugin.Plugin
+import org.bson.types.ObjectId
 import java.util.*
 
 /**
- * Created by schulerlabor on 24.05.16.
+ * @see MongoDatabase
  */
 class MongoDatabase(launcher: Launcher, db: DB) : Database<DBObject> {
+
+
     override var launcher: Launcher? = launcher
     val db: DB = db
 
@@ -47,21 +50,26 @@ class MongoDatabase(launcher: Launcher, db: DB) : Database<DBObject> {
     }
 
     override fun download(into: DatabaseObject, at: DBObject) {
-        val map = LinkedHashMap<String, Any>()
+        val map = LinkedHashMap<String, Any?>()
         for (dbOb in download(at, into.plugin)) {
-            map.putAll(dbOb.toMap() as Map<out String, Any>)
+            map.putAll(dbOb.toMap() as Map<out String, Any?>)
             //Only the first one should be applied!
             break
         }
         into.toMap = map
+        into.index = map.get("_id") as ObjectId
 
     }
 
     override fun download(where: DatabaseObject): Array<DBObject> {
+        if (where.indices == null) {
+            return arrayOf()
+        }
         return download(mapToDBObject(where.indices), where.plugin)
     }
 
     override fun download(indices: DBObject, plugin: Plugin): Array<DBObject> {
+        if (indices == null || indices.toMap().size < 1) return arrayOf()
         val col = db.getCollection(plugin.description!!.name)
         return col.find(indices).toArray().toTypedArray()
     }
@@ -71,11 +79,19 @@ class MongoDatabase(launcher: Launcher, db: DB) : Database<DBObject> {
     }
 
     override fun delete(indices: DBObject, plugin: Plugin) {
+        if (indices == null || indices.toMap().size < 1) return;
         val col = db.getCollection(plugin.description!!.name)
         col.remove(indices)
     }
 
-    fun mapToDBObject(map: HashMap<String, Any>): DBObject {
+    override fun defaultIndicesOf(target: DatabaseObject): Map<String, Any?>? {
+        return mapOf(Pair("_id", target.index as? ObjectId))
+    }
+
+    fun mapToDBObject(map: Map<String, Any?>?): DBObject {
+        if (map == null) {
+            return BasicDBObject()
+        }
         return BasicDBObject(map)
     }
 

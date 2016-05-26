@@ -17,10 +17,14 @@ package net.cleverdesk.cleverdesk.ui.general
 import net.cleverdesk.cleverdesk.ui.Component
 
 /**
- * Created by matthias on 03.05.16.
+ * Shows a YouTube.com Video in the frontend. (native-support)
  */
 class YouTubeVideo : Component {
 
     override val name: String = "YouTubeVideo"
+
+    /**
+     * The url of the video (not the embed url)
+     */
     var url: String = ""
 }

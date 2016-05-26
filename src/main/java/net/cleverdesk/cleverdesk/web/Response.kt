@@ -24,6 +24,15 @@ class Response(status:Int, body:Any) {
         this.status = status
         this.body = body
     }
+
+    /**
+     * @return Body and Status-Code as Json
+     *
+     * Example:
+     *```
+     *    {"status:200,"body":"Welcome to Cleverdesk"}
+     *```
+     */
     fun to_json():String {
         val gson = Gson()
         return gson.toJson(this)

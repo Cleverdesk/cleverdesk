@@ -17,10 +17,25 @@ package net.cleverdesk.cleverdesk.ui.general
 import net.cleverdesk.cleverdesk.ui.Component
 
 /**
- * Created by matthias on 03.05.16.
+ * A window where the user can interact with websites/HTML-elements. Theire is not a good native support! Please use the
+ * ui-components of the backend and only use this in an emergency case! It is like an iFrame.
  */
 class HTMLView : Component {
     override val name: String = "HTMLView"
+    /**
+     * The HTML-Code of the HTMLView. Please use full HTML:
+     * Example:
+     * ````
+     * <html>
+     *     <head>
+     *         ...
+     *     </head>
+     *     <body>
+     *         ...
+     *     </body>
+     * </html>
+     * ````
+     */
     var code: String = ""
 
 }

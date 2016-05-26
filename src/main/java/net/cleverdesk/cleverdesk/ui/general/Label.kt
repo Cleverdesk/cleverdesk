@@ -17,10 +17,12 @@ package net.cleverdesk.cleverdesk.ui.general
 import net.cleverdesk.cleverdesk.ui.Component
 
 /**
- * Created by matthias on 03.05.16.
+ * A simple text.
  */
 class Label() : Component {
     override val name: String = "Label"
-
+    /**
+     * The text which is shown
+     */
     var text: String = ""
 }

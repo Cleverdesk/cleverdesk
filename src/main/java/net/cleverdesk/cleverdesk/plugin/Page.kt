@@ -19,9 +19,19 @@ import net.cleverdesk.cleverdesk.User
 import net.cleverdesk.cleverdesk.ui.UI
 
 /**
- * Created by jonas on 03.05.16.
+ * A page is listed in the menu and is identified by the class name.
  */
 interface Page {
+    /**
+     * The display-name of the page
+     */
     public val name: String
+
+    /**
+     * @property user The user which is sending the request.
+     * @property request The request and the parameters whitch are sended additionally.
+     * @return The response which the backend will send to the frontend.
+     * @see UI
+     */
     public fun response(user: User, request: UIRequest): UI
 }

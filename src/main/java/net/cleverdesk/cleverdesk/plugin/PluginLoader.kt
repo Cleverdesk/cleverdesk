@@ -97,6 +97,7 @@ class PluginLoader {
                     override val author: String
                         get() = (plInfo as PluginInfo).author
                 }
+                plugin!!.launcher = launcher
 
                 println("Loaded ${(plugin.description as PluginDescription).name}")
 

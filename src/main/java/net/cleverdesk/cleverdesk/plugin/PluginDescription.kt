@@ -15,7 +15,9 @@
 
 package net.cleverdesk.cleverdesk.plugin
 
-
+/**
+ * Abstracts the [PluginInfo]-Annotation.
+ */
 interface PluginDescription {
     public val name: String
     public val description: String

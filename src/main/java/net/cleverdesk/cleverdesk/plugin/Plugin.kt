@@ -23,23 +23,52 @@ import net.cleverdesk.cleverdesk.web.escape
 import java.io.File
 import java.util.*
 
+/**
+ * A plugin is an additional software module which is loaded dynamicly from the plugins/ or drivers/ folder.
+ */
 open class Plugin() {
 
 
-    public val launcher: Launcher? = null
+    /**
+     * The [Launcher] which loaded the Plugin.
+     */
+    public var launcher: Launcher? = null
+    /**
+     * TODO
+     */
     public val listenerManager: ListenerManager? = launcher?.listenerManager
+    /**
+     * Gives a short information about the plugin. Please use [PluginInfo] to declare this informations.
+     */
     public var description: PluginDescription? = null
+    /**
+     * The list of pages which are included in the plugin. This list is used by the launcher to build the menu.
+     * @see Page
+     */
     public val pages: MutableList<Page> = LinkedList<Page>()
+    /**
+     * The folder where the plugin can store files, local database or other stuff.
+     * Example-Path (Name of the Plugin: Test) : .../plugins/Test/
+     */
     public val dataDir: File ?
         get() = File(launcher?.dataFolder?.absolutePath + "${description?.name?.escape()}/")
+    /**
+     * Mirrors the database which is located in the launcher. Plugin-only databases are at the moment not supported and not wanted.
+     */
     public val database: Database<*> ?
         get() = launcher?.database
 
 
+    /**
+     * Will be executed if the plugin starts up.
+     */
     public open fun enable() {
 
     }
 
+    /**
+     * Will be executed if the plugin shuts down.
+     */
     public open fun disable() {
 
     }
