@@ -22,5 +22,4 @@ class Textarea() : AbstractInputField<String>() {
     override var input_name: String = ""
 
     var readOnly: Boolean = false
-    var text: String = ""
 }
