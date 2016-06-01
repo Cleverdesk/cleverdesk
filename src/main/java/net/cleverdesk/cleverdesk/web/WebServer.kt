@@ -67,7 +67,7 @@ object WebServer {
                                     get() = req.queryMap().toMap()
 
                             }
-                            val user = User()
+                            val user = User(plugin)
                             response = page.response(user, ui_req)
                             break
                         }

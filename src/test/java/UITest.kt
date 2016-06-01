@@ -12,7 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import net.cleverdesk.cleverdesk.User
+import net.cleverdesk.cleverdesk.database.drivers.MongoDriver
 import net.cleverdesk.cleverdesk.launcher.Launcher
+import net.cleverdesk.cleverdesk.plugin.PluginDescription
 import org.junit.Test
 
 class UITest {
@@ -20,8 +23,33 @@ class UITest {
     @Test
     public fun testIt() {
         val test_launcher: Launcher = Launcher()
-        test_launcher.plugins.add(PluginExample())
+
+        val dbDriver = MongoDriver()
+        dbDriver.launcher = test_launcher
+        test_launcher.plugins.add(dbDriver)
+
+        val testPL = PluginExample()
+        testPL.launcher = test_launcher
+        testPL.description = object : PluginDescription {
+            override val name: String
+                get() = "Test-Plugin"
+            override val author: String
+                get() = "Cleverdesk"
+            override val description: String
+                get() = "Only for UI & DB testing!"
+        }
+        test_launcher.plugins.add(testPL)
+
         test_launcher.start()
-        Thread.sleep(2000)
+
+        Thread.sleep(4000)
+
+        val user = User(testPL)
+        user.first_name = "Max"
+        user.last_name = "Mustermann"
+        user.external_data = mapOf(Pair("email", "mail@example.com"))
+        user.password = "very_secure"
+        test_launcher.database?.upload(user)
+        print("Uploaded user: ${test_launcher.database != null}")
     }
 }

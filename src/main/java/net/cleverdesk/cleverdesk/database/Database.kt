@@ -25,10 +25,10 @@ import net.cleverdesk.cleverdesk.plugin.Plugin
  * * Every database should also work with [DatabaseObject]-Instances.
  *
  * @param S The alternative or original data-transport-type like BasicDBObject (Mongo)
- * @sample MongoDatabase
+ * @sample CleverdeskMongoDatabase
  *
  */
-interface Database<S> {
+interface Database<S, C> {
 
     var launcher: Launcher?
 
@@ -36,7 +36,8 @@ interface Database<S> {
      * Inserts or updates a [from]
      */
     public fun upload(from: DatabaseObject)
-    public fun upload(target: S, indices: S, plugin: Plugin)
+
+    public fun upload(target: S, indices: S, plugin: Plugin, type: C)
 
     /**
      * Queries a [into] and saves the result in the [at] Object
@@ -44,18 +45,19 @@ interface Database<S> {
     public fun download(into: DatabaseObject, at: DatabaseObject)
     public fun download(into: DatabaseObject, at: S)
     public fun download(where: DatabaseObject): Array<S>
-    public fun download(indices: S, plugin: Plugin): Array<S>
+    public fun download(indices: S, plugin: Plugin, type: C): Array<S>
 
 
     /**
      * Deletes [target] from the DB
      */
     public fun delete(target: DatabaseObject)
-    public fun delete(indices: S, plugin: Plugin)
+
+    public fun delete(indices: S, plugin: Plugin, type: C)
 
     /**
      * @property target The database-implementation should look at a existing index in [target]
-     * @return The default indices of [target] like _id in [MongoDatabase]
+     * @return The default indices of [target] like _id in [CleverdeskMongoDatabase]
      */
     public fun defaultIndicesOf(target: DatabaseObject) : Map<String, Any?>?
 

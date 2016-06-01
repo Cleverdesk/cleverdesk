@@ -16,6 +16,9 @@ package net.cleverdesk.cleverdesk.database
 
 import net.cleverdesk.cleverdesk.plugin.Plugin
 import java.util.*
+import kotlin.reflect.jvm.isAccessible
+import kotlin.reflect.jvm.javaField
+import kotlin.reflect.jvm.properties
 
 /**
  * Created by schulerlabor on 24.05.16.
@@ -27,13 +30,14 @@ abstract class DatabaseObject {
     public var toMap: Map<String, Any?>?
         get() {
             val fields = LinkedHashMap<String, Any>()
-            for (field in this.javaClass.fields) {
+            for (field in this.javaClass.kotlin.properties) {
                 field.isAccessible = true
-                if (field.isAnnotationPresent(DatabaseObject.Database::class.java)) {
-                    fields.put(field.name, field.get(this))
+                if (field.annotations.find { a -> a.javaClass == Database::class.java } != null) {
+                    if (field.get(this) != null) fields.put(field.name, field.get(this)!!)
                 }
 
             }
+            print(fields)
             return fields
         }
         set(value) {
@@ -44,9 +48,9 @@ abstract class DatabaseObject {
             for (key in value.keys) {
                 val value = value.get(key)
                 try {
-                    val field = this.javaClass.getDeclaredField(key)
-                    field.isAccessible = true
-                    field.set(this, value)
+                    val field = this.javaClass.kotlin.properties.find { i -> i.name == key }
+                    field?.isAccessible = true
+                    field?.javaField?.set(this, value)
                 } catch(e: Exception) {
                     println("Error while restoring DatabaseObject. Key=${key} Value=${value}")
                     return
@@ -55,14 +59,14 @@ abstract class DatabaseObject {
             }
         }
 
-    public val indices: Map<String, Any?>?
+    public open val indices: Map<String, Any?>?
         get() {
             return plugin.database?.defaultIndicesOf(this)
         }
 
     var index: Any? = null
 
-    annotation class Database()
+    protected annotation class Database()
 
 
 }

@@ -55,7 +55,7 @@ open class Plugin() {
     /**
      * Mirrors the database which is located in the launcher. Plugin-only databases are at the moment not supported and not wanted.
      */
-    public val database: Database<*> ?
+    public val database: Database<*, *> ?
         get() = launcher?.database
 
 

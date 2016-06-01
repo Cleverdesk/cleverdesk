@@ -12,36 +12,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.cleverdesk.cleverdesk
+package net.cleverdesk.cleverdesk.database.drivers
 
-import net.cleverdesk.cleverdesk.database.DatabaseObject
+import com.mongodb.MongoClient
+import com.mongodb.client.MongoDatabase
+import net.cleverdesk.cleverdesk.database.CleverdeskMongoDatabase
 import net.cleverdesk.cleverdesk.plugin.Plugin
-import java.util.*
 
 /**
- * TODO
+ * Created by schulerlabor on 01.06.16.
  */
-open class User(override val plugin: Plugin) : DatabaseObject() {
-    @Database
-    public open var first_name: String? = null
-    @Database
-    public open var last_name: String? = null
-    @Database
-    public open var password: String? = null
-    @Database
-    public open var external_data: Map<String, Any>? = mapOf()
-    @Database
-    public open var uuid: String = UUID.randomUUID().toString()
 
+public class MongoDriver() : Plugin() {
 
-    init {
-        print(toMap)
+    private var db: MongoDatabase = MongoClient("localhost").getDatabase("cleverdesk")
+
+    override fun enable() {
+        launcher?.database = CleverdeskMongoDatabase(launcher!!, db)
     }
-
-    override val indices: Map<String, Any>
-        get() {
-            return mapOf(Pair("uuid", uuid))
-        }
-
 
 }
