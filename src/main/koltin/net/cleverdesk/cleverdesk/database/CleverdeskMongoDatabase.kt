@@ -93,6 +93,7 @@ class CleverdeskMongoDatabase(launcher: Launcher, db: MongoDatabase) : Database<
         if (map == null) {
             return Document()
         }
+        println(map)
         return Document(map)
     }
 

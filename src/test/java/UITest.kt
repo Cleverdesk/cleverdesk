@@ -12,7 +12,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import net.cleverdesk.cleverdesk.User
 import net.cleverdesk.cleverdesk.database.drivers.MongoDriver
 import net.cleverdesk.cleverdesk.launcher.Launcher
 import net.cleverdesk.cleverdesk.plugin.PluginDescription
@@ -43,13 +42,14 @@ class UITest {
         test_launcher.start()
 
         Thread.sleep(4000)
-
-        val user = User(testPL)
-        user.first_name = "Max"
-        user.last_name = "Mustermann"
-        user.external_data = mapOf(Pair("email", "mail@example.com"))
-        user.password = "very_secure"
-        test_launcher.database?.upload(user)
-        print("Uploaded user: ${test_launcher.database != null}")
+        /*
+                val user = User(testPL)
+                user.first_name = "Max"
+                user.last_name = "Mustermann"
+                user.external_data = mapOf(Pair("email", "mail@example.com"))
+                user.password = "very_secure"
+                test_launcher.database?.upload(user)
+                print("Uploaded user: ${test_launcher.database != null}")
+                Thread.sleep(4000)*/
     }
 }

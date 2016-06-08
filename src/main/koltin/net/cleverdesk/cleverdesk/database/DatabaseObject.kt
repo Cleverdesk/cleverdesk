@@ -17,8 +17,6 @@ package net.cleverdesk.cleverdesk.database
 import net.cleverdesk.cleverdesk.plugin.Plugin
 import java.util.*
 import kotlin.reflect.jvm.isAccessible
-import kotlin.reflect.jvm.javaField
-import kotlin.reflect.jvm.properties
 
 /**
  * Created by schulerlabor on 24.05.16.
@@ -28,20 +26,31 @@ abstract class DatabaseObject {
     public abstract val plugin: Plugin
 
     public var toMap: Map<String, Any?>?
+        /**
+         * Generates a Map by Kotlin Refelection
+         */
         get() {
             val fields = LinkedHashMap<String, Any>()
-            print(this.javaClass.kotlin.members.toTypedArray())
-            for (field in this.javaClass.kotlin.properties) {
-                print(field.name)
+            for (field in this.javaClass.kotlin.members) {
+                println(field.name)
                 field.isAccessible = true
-                if (field.annotations.find { a -> a.javaClass == Database::class.java } != null) {
-                    if (field.get(this) != null) fields.put(field.name, field.get(this)!!)
+                if (field.annotations.find({ a -> a.annotationClass.qualifiedName?.equals(Database::class.qualifiedName)!! }) != null) {
+
+                    try {
+                        if (field.call(this) != null) fields.put(field.name, field.call(this)!!)
+                    } catch (e: Exception) {
+                        //To few arguments passed! A mistake by the developer!
+                        println(e.message)
+
+                    }
                 }
 
             }
-            print(fields)
             return fields
         }
+        /**
+         * Inserts [value] into the fields that provided in the map.
+         */
         set(value) {
             if (value == null) {
                 //Nothing to restore
@@ -50,9 +59,9 @@ abstract class DatabaseObject {
             for (key in value.keys) {
                 val value = value.get(key)
                 try {
-                    val field = this.javaClass.kotlin.properties.find { i -> i.name == key }
+                    val field = this.javaClass.kotlin.members.find { i -> i.name == key }
                     field?.isAccessible = true
-                    field?.javaField?.set(this, value)
+                    field?.call(this, value)
                 } catch(e: Exception) {
                     println("Error while restoring DatabaseObject. Key=${key} Value=${value}")
                     return
@@ -68,7 +77,7 @@ abstract class DatabaseObject {
 
     var index: Any? = null
 
-    protected annotation class Database()
+    public annotation class Database()
 
 
 }
