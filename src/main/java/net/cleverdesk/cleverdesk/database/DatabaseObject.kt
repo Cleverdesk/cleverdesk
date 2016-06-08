@@ -30,7 +30,9 @@ abstract class DatabaseObject {
     public var toMap: Map<String, Any?>?
         get() {
             val fields = LinkedHashMap<String, Any>()
+            print(this.javaClass.kotlin.members.toTypedArray())
             for (field in this.javaClass.kotlin.properties) {
+                print(field.name)
                 field.isAccessible = true
                 if (field.annotations.find { a -> a.javaClass == Database::class.java } != null) {
                     if (field.get(this) != null) fields.put(field.name, field.get(this)!!)
