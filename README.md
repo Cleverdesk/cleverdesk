@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Cleverdesk/cleverdesk.svg?branch=master)](https://travis-ci.org/Cleverdesk/cleverdesk)
+
 # Cleverdesk-Backend
 Cleverdesk is multifunctional, modular and modern backend- and frontendsystem which combines cross-platforming and simple coding. Cleverdesk is also a support-desk-system which provides a couple of
  channels like E-Mail, Phone or SMS. 
