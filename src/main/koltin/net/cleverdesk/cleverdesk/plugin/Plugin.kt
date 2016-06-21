@@ -36,7 +36,7 @@ open class Plugin() {
     /**
      * TODO
      */
-    public val listenerManager: ListenerManager? = launcher?.listenerManager
+    public open val listenerManager: ListenerManager? = launcher?.listenerManager
     /**
      * Gives a short information about the plugin. Please use [PluginInfo] to declare this informations.
      */
@@ -55,7 +55,7 @@ open class Plugin() {
     /**
      * Mirrors the database which is located in the launcher. Plugin-only databases are at the moment not supported and not wanted.
      */
-    public val database: Database<*, *> ?
+    public open val database: Database<*, *> ?
         get() = launcher?.database
 
 

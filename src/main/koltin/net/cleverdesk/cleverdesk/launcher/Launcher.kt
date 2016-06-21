@@ -27,14 +27,15 @@ import spark.Spark
 import java.io.File
 import java.util.*
 
-class Launcher {
+class Launcher : Plugin() {
+
 
     public val plugins: MutableList<Plugin> = LinkedList<Plugin>()
 
-    public var database: Database<*, *>? = null
+    public override var database: Database<*, *>? = null
 
 
-    public val listenerManager: ListenerManager = object : LinkedList<Listener>(), ListenerManager {}
+    public override val listenerManager: ListenerManager = object : LinkedList<Listener>(), ListenerManager {}
 
     /**
      * The folder, where all data (like plugins) are.
@@ -44,13 +45,19 @@ class Launcher {
             return File("${Launcher::class.java.protectionDomain.codeSource.location.toURI().path.replace(".jar", "")}/")
         }
 
-    public fun start() {
+    public override fun enable() {
+        description = object : PluginDescription {
+            override val name: String = "Cleverdesk Launcher"
+            override val description: String = "The cleverdesk launcher that loads plugins and manage data."
+            override val author: String = "Cleverdesk Team"
+
+        }
         println("License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>")
         println("This is free software: you are free to change and redistribute it.")
         println("There is NO WARRANTY, to the extent permitted by law.")
 
         //On ^C execute shutdown()
-        Runtime.getRuntime().addShutdownHook(Thread(Runnable { shutdown() }))
+        Runtime.getRuntime().addShutdownHook(Thread(Runnable { disable() }))
 
         //Create Folders (plugins etc.)
         if (!dataFolder.exists()) dataFolder.mkdirs()
@@ -98,7 +105,7 @@ class Launcher {
 
     }
 
-    public fun shutdown() {
+    public override fun disable() {
         for (plugin in plugins) {
             plugin.disable()
         }

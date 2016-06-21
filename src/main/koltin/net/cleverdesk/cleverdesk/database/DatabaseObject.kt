@@ -16,7 +16,9 @@ package net.cleverdesk.cleverdesk.database
 
 import net.cleverdesk.cleverdesk.plugin.Plugin
 import java.util.*
+import kotlin.reflect.KMutableProperty
 import kotlin.reflect.jvm.isAccessible
+import kotlin.reflect.jvm.properties
 
 /**
  * Created by schulerlabor on 24.05.16.
@@ -32,7 +34,7 @@ abstract class DatabaseObject {
         get() {
             val fields = LinkedHashMap<String, Any>()
             for (field in this.javaClass.kotlin.members) {
-                println(field.name)
+                // println(field.name)
                 field.isAccessible = true
                 if (field.annotations.find({ a -> a.annotationClass.qualifiedName?.equals(Database::class.qualifiedName)!! }) != null) {
 
@@ -59,10 +61,11 @@ abstract class DatabaseObject {
             for (key in value.keys) {
                 val value = value.get(key)
                 try {
-                    val field = this.javaClass.kotlin.members.find { i -> i.name == key }
-                    field?.isAccessible = true
-                    field?.call(this, value)
+                    var prop = this.javaClass.kotlin.properties.find { i -> i.name == key } as KMutableProperty<*>?
+                    prop?.isAccessible = true
+                    prop?.setter?.call(this, value)
                 } catch(e: Exception) {
+                    e.printStackTrace()
                     println("Error while restoring DatabaseObject. Key=${key} Value=${value}")
                     return
                 }

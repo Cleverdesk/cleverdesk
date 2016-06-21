@@ -27,6 +27,8 @@ open class User(override val plugin: Plugin) : DatabaseObject() {
     @Database
     public open var last_name: String? = null
     @Database
+    public open var username: String? = null
+    @Database
     public open var password: String? = null
     @Database
     public open var external_data: Map<String, Any>? = mapOf()
@@ -34,12 +36,19 @@ open class User(override val plugin: Plugin) : DatabaseObject() {
     public open var uuid: String = UUID.randomUUID().toString()
 
 
+    public fun hasPermission(permission: String): Boolean {
+        //TODO Implement access and permission system!
+        print(username)
+        return true
+    }
+
     init {
         print(toMap)
     }
 
     override val indices: Map<String, Any>
         get() {
+            if (username != null) return mapOf(Pair("username", username!!))
             return mapOf(Pair("uuid", uuid))
         }
 

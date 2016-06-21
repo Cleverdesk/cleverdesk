@@ -56,7 +56,7 @@ class CleverdeskMongoDatabase(launcher: Launcher, db: MongoDatabase) : Database<
             break
         }
         into.toMap = map
-        into.index = map.get("_id") as ObjectId
+        //  into.index = map.get("_id") as ObjectId
 
     }
 
@@ -71,6 +71,7 @@ class CleverdeskMongoDatabase(launcher: Launcher, db: MongoDatabase) : Database<
         if (indices == null || indices.size < 1) return arrayOf()
         val col = db.getCollection(plugin.description!!.name + "_" + type)
         val list = ArrayList<Document>()
+        val first = col.find(indices).first()
         col.find(indices).into(list)
         return list.toTypedArray()
     }
@@ -93,8 +94,12 @@ class CleverdeskMongoDatabase(launcher: Launcher, db: MongoDatabase) : Database<
         if (map == null) {
             return Document()
         }
-        println(map)
-        return Document(map)
+        val doc = Document()
+        for (key in map.keys) {
+            doc.append(key, map.get(key))
+        }
+        println(doc.toJson())
+        return doc
     }
 
 
