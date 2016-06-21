@@ -111,7 +111,7 @@
                 <configuration>
                     <header>LICENSE_HEADER</header>
                     <includes>
-                        <include>src/main/kotlin/**</include>
+                        <include>src/main/java/**</include>
                         <include>src/test/java/**</include>
                     </includes>
                     <useDefaultExcludes>true</useDefaultExcludes>
