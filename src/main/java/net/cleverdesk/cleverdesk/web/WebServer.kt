@@ -22,7 +22,6 @@ package net.cleverdesk.cleverdesk.web
 import com.google.gson.Gson
 import net.cleverdesk.cleverdesk.BuildProperties
 import net.cleverdesk.cleverdesk.UIRequest
-import net.cleverdesk.cleverdesk.User
 import net.cleverdesk.cleverdesk.launcher.Launcher
 import net.cleverdesk.cleverdesk.plugin.PluginDescription
 import net.cleverdesk.cleverdesk.ui.UI
@@ -58,15 +57,20 @@ object WebServer {
         post("/auth") { req, res ->
             try {
                 val authReq = Gson().fromJson(req.body(), AuthRequest::class.java)
-                if (authReq.username == null || authReq.password == null) {
+                if (authReq.username == null || authReq.password == null || authReq.lifetime == null) {
                     res.status(400)
                     Response(400, "Invalid arguments").to_json()
                 } else {
-                    try {
-                        Response(200, auth.generateToken(authReq.username!!, authReq.password!!)).to_json()
-                    } catch(e: AuthenticationException) {
-                        Response(403, e.message!!).to_json()
+                    if (authReq.lifetime!! > 6 * 30 * 24 * 60) {
+                        Response(400, "Lifetime maximum is 6 Months.").to_json()
+                    } else {
+                        try {
+                            Response(200, auth.generateToken(authReq.username!!, authReq.password!!, authReq.lifetime!!)).to_json()
+                        } catch(e: AuthenticationException) {
+                            Response(403, e.message!!).to_json()
+                        }
                     }
+
 
                 }
             } catch(ex: Exception) {
@@ -94,7 +98,8 @@ object WebServer {
                                         get() = req.queryMap().toMap()
 
                                 }
-                                val user = User(plugin)
+                                val user = auth.authUser(req.headers("token"))
+                                if (user == null) break;
                                 response = page.response(user, ui_req)
                                 break
                             }

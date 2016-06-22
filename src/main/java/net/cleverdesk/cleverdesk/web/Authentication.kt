@@ -14,12 +14,14 @@
  */
 package net.cleverdesk.cleverdesk.web
 
+import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import io.jsonwebtoken.SignatureException
 import io.jsonwebtoken.impl.crypto.MacProvider
 import net.cleverdesk.cleverdesk.User
 import net.cleverdesk.cleverdesk.launcher.Launcher
+import org.apache.commons.lang3.time.DateUtils
+import java.util.*
 
 /**
  * Created by schulerlabor on 21.06.16.
@@ -30,7 +32,7 @@ class Authentication(launcher: Launcher) {
     private final val launcher = launcher
 
 
-    fun generateToken(username: String, password: String): String {
+    fun generateToken(username: String, password: String, liftime_seconds: Int): String {
         val user: User = User(launcher)
         user.username = username
         if (launcher.database == null) {
@@ -44,27 +46,37 @@ class Authentication(launcher: Launcher) {
         }
 
         val alg: SignatureAlgorithm = SignatureAlgorithm.HS256
+        val exp: Date = DateUtils.addSeconds(Date(), liftime_seconds)
 
-        return Jwts.builder().setSubject(user.uuid).signWith(alg, apiKey).compact()
+        return Jwts.builder()
+                .setId(user.uuid)
+                .signWith(alg, apiKey)
+                .setNotBefore(Date())
+                .setExpiration(exp)
+                .setSubject(user.password)
+                .compact()
+
 
     }
 
     fun authUser(token: String): User {
         try {
-            val uuid = Jwts.parser().setSigningKey(apiKey).parseClaimsJws(token).body.subject
+            val claims = Jwts.parser().setSigningKey(apiKey).parseClaimsJws(token).body
+
+            val uuid = claims.id
             val user: User = User(launcher)
             user.uuid = uuid
             if (launcher.database == null) {
                 throw AuthenticationException("Internal error")
             }
             launcher.database!!.download(user, user)
-            if (user.username == null) {
+            if (user.password != claims.subject) {
                 throw AuthenticationException("Invalid token")
 
             }
             return user
 
-        } catch(e: SignatureException) {
+        } catch(e: JwtException) {
             throw AuthenticationException("Invalid token")
         }
     }
@@ -81,4 +93,6 @@ class AuthenticationException(override val message: String?) : Exception() {
 class AuthRequest() {
     public var username: String? = null
     public var password: String? = null
+    public var lifetime: Int? = null
+
 }

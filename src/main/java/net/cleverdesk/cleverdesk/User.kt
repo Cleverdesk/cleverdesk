@@ -31,7 +31,7 @@ open class User(override val plugin: Plugin) : DatabaseObject() {
     @Database
     public open var password: String? = null
     @Database
-    public open var external_data: Map<String, Any>? = mapOf()
+    public open var external_data: Map<String, Any> = mapOf()
     @Database
     public open var uuid: String = UUID.randomUUID().toString()
 

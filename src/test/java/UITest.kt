@@ -50,7 +50,7 @@ class UITest {
         user.last_name = "Mustermann"
         user.external_data = mapOf(Pair("email", "mail@example.com"))
         user.password = "very_secure"
-        test_launcher.database?.upload(user)
+        //test_launcher.database?.upload(user)
         print("Uploaded user: ${test_launcher.database != null}")
         Thread.sleep(4000)
     }
