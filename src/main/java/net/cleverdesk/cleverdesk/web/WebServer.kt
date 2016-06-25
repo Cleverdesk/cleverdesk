@@ -61,7 +61,7 @@ object WebServer {
                     res.status(400)
                     Response(400, "Invalid arguments").to_json()
                 } else {
-                    if (authReq.lifetime!! > 6 * 30 * 24 * 60) {
+                    if (authReq.lifetime!! > 6 * 30 * 24 * 60 * 60) {
                         Response(400, "Lifetime maximum is 6 Months.").to_json()
                     } else {
                         try {
