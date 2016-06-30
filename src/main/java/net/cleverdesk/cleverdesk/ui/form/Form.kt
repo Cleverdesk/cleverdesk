@@ -12,22 +12,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package net.cleverdesk.cleverdesk.ui.form
 
-import net.cleverdesk.cleverdesk.ui.Action
+import net.cleverdesk.cleverdesk.ui.Component
+import net.cleverdesk.cleverdesk.ui.UI
+import java.util.*
 
+class Form : UI() {
 
-class InputField() : AbstractInputField<String>() {
-    override var input_name: String = ""
+    private val fields: MutableList<String> = mutableListOf()
 
-        
-    override val name: String = "InputField"
-    var type: String = "text"
+    override val name: String = "Form"
 
-    public var onClickAction: Action? = null
-    public var max: Int? = null
-    public var validation_pattern: ValidationPatter? = null
+    var identifer: String = UUID.randomUUID().toString()
+
+    override fun addComponent(component: Component) {
+        super.addComponent(component)
+        if (component is AbstractInputField<*>) {
+            fields.add(component.input_name)
+        }
+    }
+
+    override fun removeComponent(component: Component) {
+        super.removeComponent(component)
+        if (component is AbstractInputField<*>) {
+            fields.remove(component.input_name)
+        }
+    }
+
 
 }
-

@@ -14,12 +14,12 @@
  */
 package net.cleverdesk.cleverdesk.ui.general
 
-import net.cleverdesk.cleverdesk.ui.Component
+import net.cleverdesk.cleverdesk.ui.ReplaceableComponent
 
 /**
  * A simple text.
  */
-class Label() : Component {
+class Label() : ReplaceableComponent() {
     override val name: String = "Label"
     /**
      * The text which is shown

@@ -28,12 +28,14 @@
  */
 package net.cleverdesk.cleverdesk.ui
 
+import net.cleverdesk.cleverdesk.plugin.Response
 import java.util.*
 
 /**
  * The UI bundels all UI [Component]s on a [Page]/[net.cleverdesk.cleverdesk.web.Response].
+ * It is by default an Full-Screen page.
  */
-class UI() : ComponentGroup {
+open class UI() : ComponentGroup, Response {
     override val name: String = "UI"
     private val components: LinkedList<Component> = LinkedList<Component>()
 
@@ -49,3 +51,4 @@ class UI() : ComponentGroup {
         return components
     }
 }
+

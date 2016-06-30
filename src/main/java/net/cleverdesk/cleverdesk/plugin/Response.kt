@@ -12,10 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.cleverdesk.cleverdesk.ui.form
+package net.cleverdesk.cleverdesk.plugin
 
-import net.cleverdesk.cleverdesk.ui.ReplaceableComponent
+import net.cleverdesk.cleverdesk.ui.Component
 
-abstract class FormComponent : ReplaceableComponent() {
-    public var enabled: Boolean = true
+
+interface Response : Component {
 }

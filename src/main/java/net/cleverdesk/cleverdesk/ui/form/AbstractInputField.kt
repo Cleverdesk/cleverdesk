@@ -15,6 +15,8 @@
 
 package net.cleverdesk.cleverdesk.ui.form
 
+import net.cleverdesk.cleverdesk.ui.TextColor
+
 abstract class AbstractInputField<T>() : FormComponent() {
 
     public abstract var input_name: String
@@ -24,6 +26,8 @@ abstract class AbstractInputField<T>() : FormComponent() {
     public var placeholder: T? = null
 
     public var label: String? = null
+
+    public var color: TextColor? = null
 
 }
 

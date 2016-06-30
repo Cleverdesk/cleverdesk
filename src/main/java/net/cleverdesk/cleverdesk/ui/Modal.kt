@@ -12,10 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.cleverdesk.cleverdesk.ui.form
+package net.cleverdesk.cleverdesk.ui
 
-import net.cleverdesk.cleverdesk.ui.ReplaceableComponent
-
-abstract class FormComponent : ReplaceableComponent() {
-    public var enabled: Boolean = true
+/**
+ * Modal is type of popup compareable to the [Bootstrap-Modal](http://getbootstrap.com/javascript/#modals)
+ * @see http://getbootstrap.com/javascript/#modal
+ * Supported in all frontends.
+ * Mobile devices that are smaller then 5.4" will open a Modal in Full-Screen-Mode. (like [UI])
+ */
+class Modal : UI() {
+    override val name: String = "Modal"
 }

@@ -16,7 +16,6 @@ package net.cleverdesk.cleverdesk.plugin
 
 import net.cleverdesk.cleverdesk.UIRequest
 import net.cleverdesk.cleverdesk.User
-import net.cleverdesk.cleverdesk.ui.UI
 
 /**
  * A page is listed in the menu and is identified by the class name.
@@ -33,5 +32,5 @@ interface Page {
      * @return The response which the backend will send to the frontend.
      * @see UI
      */
-    public fun response(user: User, request: UIRequest): UI
+    public fun response(user: User, request: UIRequest): Response
 }

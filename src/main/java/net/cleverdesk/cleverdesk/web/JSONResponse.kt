@@ -12,10 +12,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.cleverdesk.cleverdesk.ui.form
+package net.cleverdesk.cleverdesk.web
+import com.google.gson.Gson
+/**
+ * Created by jkuche on 23.04.16.
+ */
+class JSONResponse(status: Int, body: Any) {
+    internal var status:Int
+    internal var body:Any
+    init{
+        this.status = status
+        this.body = body
+    }
 
-import net.cleverdesk.cleverdesk.ui.ReplaceableComponent
-
-abstract class FormComponent : ReplaceableComponent() {
-    public var enabled: Boolean = true
+    /**
+     * @return Body and Status-Code as Json
+     *
+     * Example:
+     *```
+     *    {"status:200,"body":"Welcome to Cleverdesk"}
+     *```
+     */
+    fun to_json():String {
+        val gson = Gson()
+        return gson.toJson(this)
+    }
 }

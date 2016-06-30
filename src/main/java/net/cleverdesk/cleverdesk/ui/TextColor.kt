@@ -12,10 +12,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.cleverdesk.cleverdesk.ui.form
+package net.cleverdesk.cleverdesk.ui
 
-import net.cleverdesk.cleverdesk.ui.ReplaceableComponent
-
-abstract class FormComponent : ReplaceableComponent() {
-    public var enabled: Boolean = true
+/**
+ * [TextColor] is a placeholder for frontend specific colors.
+ */
+enum class TextColor {
+    SUCCESS, DANGER, WARNING, DEFAULT, INFO
 }

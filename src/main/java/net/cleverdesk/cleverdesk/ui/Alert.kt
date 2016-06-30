@@ -12,10 +12,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.cleverdesk.cleverdesk.ui.form
+package net.cleverdesk.cleverdesk.ui
 
-import net.cleverdesk.cleverdesk.ui.ReplaceableComponent
+import net.cleverdesk.cleverdesk.plugin.Response
 
-abstract class FormComponent : ReplaceableComponent() {
-    public var enabled: Boolean = true
+/**
+ * An alert only contains [text] that will be displayed to the user.
+ * This should be use for Errors other short messages.
+ */
+class Alert : Response {
+    override val name: String = "Alert"
+    var text: String = ""
 }
