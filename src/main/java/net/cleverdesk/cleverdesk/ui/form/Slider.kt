@@ -19,6 +19,5 @@ package net.cleverdesk.cleverdesk.ui.form
  */
 class Slider() : AbstractInputField<Int>() {
     override val name: String = "Slider"
-    override var input_name: String = ""
 
 }

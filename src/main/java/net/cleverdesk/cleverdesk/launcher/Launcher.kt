@@ -35,19 +35,26 @@ class Launcher : Plugin() {
     public override var database: Database<*, *>? = null
 
 
+
     public override val listenerManager: ListenerManager = object : LinkedList<Listener>(), ListenerManager {}
+
+
+    /**
+     * @see dataFolder
+     */
+    public override val dataDir: File = dataFolder
 
     /**
      * The folder, where all data (like plugins) are.
      */
     public val dataFolder: File
         get() {
-            return File("${Launcher::class.java.protectionDomain.codeSource.location.toURI().path.replace(".jar", "")}/")
+            return File("Cleverdesk/")
         }
 
     public override fun enable() {
         description = object : PluginDescription {
-            override val name: String = "Cleverdesk Launcher"
+            override val name: String = "Cleverdesk"
             override val description: String = "The cleverdesk launcher that loads plugins and manage data."
             override val author: String = "Cleverdesk Team"
 
@@ -55,6 +62,9 @@ class Launcher : Plugin() {
         println("License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>")
         println("This is free software: you are free to change and redistribute it.")
         println("There is NO WARRANTY, to the extent permitted by law.")
+
+
+
 
         //On ^C execute shutdown()
         Runtime.getRuntime().addShutdownHook(Thread(Runnable { disable() }))

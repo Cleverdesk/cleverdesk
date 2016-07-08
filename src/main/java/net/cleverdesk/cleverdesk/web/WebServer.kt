@@ -27,12 +27,17 @@ import net.cleverdesk.cleverdesk.plugin.PluginDescription
 import net.cleverdesk.cleverdesk.plugin.Response
 import spark.Request
 import spark.Spark.*
+import java.net.URLEncoder
 import java.util.*
 
 object WebServer {
     @JvmStatic fun start(launcher: Launcher, port: Int) {
         val auth = Authentication(launcher)
         port(port)
+
+        before { request, response ->
+            response.header("Access-Control-Allow-Origin", "*")
+        }
         get("/", { req, res ->
             JSONResponse(200, BuildProperties.VERSION + "/" + BuildProperties.TYPE).to_json()
         })
@@ -83,7 +88,7 @@ object WebServer {
         get(":plugin/:page", { req, res ->
             if (checkAccess(req.params(":plugin") + "." + req.params(":page"), req, auth)) {
                 var status_code = 404
-                var response: Response? = null
+                var response: net.cleverdesk.cleverdesk.plugin.Response? = null
                 for (plugin in  launcher.plugins) {
                     if (plugin.description != null &&
                             (plugin.description as PluginDescription).name.escape().equals(req.params(":plugin"), true)) {
@@ -91,15 +96,17 @@ object WebServer {
                             if (page.name.escape().equals(req.params(":page"), true)) {
 
                                 status_code = 200
-                                val ui_req = object : UIRequest {
+                                val ui_req: UIRequest = object : UIRequest {
                                     override val response_target: Any
                                         get() = req.ip()
                                     override val attributes: Map<String, Any>
-                                        get() = Gson().fromJson(req.body(), HashMap<String, Any>().javaClass)
+                                        get() = mapOf()
 
                                 }
+
                                 val user = auth.authUser(req.headers("token"))
                                 if (user == null) break;
+
                                 response = page.response(user, ui_req)
                                 break
                             }
@@ -114,7 +121,7 @@ object WebServer {
                 res.status(status_code)
 
                 if (response == null) JSONResponse(status_code, "Not Found").to_json()
-                else JSONResponse(status_code, response).to_json()
+                else JSONResponse(status_code, response.toJson()).to_json()
             } else {
                 JSONResponse(403, "Access denied").to_json()
             }
@@ -184,5 +191,5 @@ object WebServer {
 
 fun String.escape(): String {
     //TODO Implement escape
-    return this
+    return URLEncoder.encode(this.replace(" ", "_"), "UTF-8")
 }

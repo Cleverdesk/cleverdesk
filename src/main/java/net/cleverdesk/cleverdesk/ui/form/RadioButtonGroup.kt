@@ -45,7 +45,6 @@ abstract class RadioButtonGroup : AbstractInputField<Int>(), ComponentGroup {
         }
     }
 
-    override var input_name: String = ""
     override val name: String = "RadioGroup"
 
 }

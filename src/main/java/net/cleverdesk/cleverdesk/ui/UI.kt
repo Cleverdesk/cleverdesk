@@ -28,6 +28,7 @@
  */
 package net.cleverdesk.cleverdesk.ui
 
+import com.google.gson.Gson
 import net.cleverdesk.cleverdesk.plugin.Response
 import java.util.*
 
@@ -36,6 +37,10 @@ import java.util.*
  * It is by default an Full-Screen page.
  */
 open class UI() : ComponentGroup, Response {
+    override fun toJson(): String {
+        return Gson().toJson(this)
+    }
+
     override val name: String = "UI"
     private val components: LinkedList<Component> = LinkedList<Component>()
 

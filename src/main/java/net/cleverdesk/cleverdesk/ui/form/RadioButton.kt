@@ -18,7 +18,6 @@ package net.cleverdesk.cleverdesk.ui.form
  * Created by bootslock on 26.04.16.
  */
 class RadioButton : AbstractInputField<String>() {
-    override var input_name: String = ""
     override val name: String = "RadioButton"
 
     public var selected: Boolean = false

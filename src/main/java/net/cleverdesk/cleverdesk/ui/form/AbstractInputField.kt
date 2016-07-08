@@ -19,7 +19,6 @@ import net.cleverdesk.cleverdesk.ui.TextColor
 
 abstract class AbstractInputField<T>() : FormComponent() {
 
-    public abstract var input_name: String
 
     public var value: T? = null
 

@@ -17,6 +17,7 @@ package net.cleverdesk.cleverdesk.database
 import com.mongodb.client.MongoDatabase
 import net.cleverdesk.cleverdesk.launcher.Launcher
 import net.cleverdesk.cleverdesk.plugin.Plugin
+import net.cleverdesk.cleverdesk.web.escape
 import org.bson.Document
 import org.bson.types.ObjectId
 import java.util.*
@@ -36,9 +37,11 @@ class CleverdeskMongoDatabase(launcher: Launcher, db: MongoDatabase) : Database<
     }
 
     override fun upload(target: Document, indices: Document, plugin: Plugin, type: String) {
-        val col = db.getCollection(plugin.description!!.name + "_" + type)
-        if (download(indices, plugin, type).count() > 0) {
-            col.updateOne(indices, target)
+        val col = db.getCollection((plugin.description!!.name + "_" + type).escape())
+        val res = download(indices, plugin, type).count()
+        if (res > 0) {
+            col.updateOne(indices, Document("\$set", target))
+
         } else {
             col.insertOne(target)
         }

@@ -15,10 +15,10 @@
 package net.cleverdesk.cleverdesk.ui.form
 
 import net.cleverdesk.cleverdesk.ui.Component
-import net.cleverdesk.cleverdesk.ui.UI
+import net.cleverdesk.cleverdesk.ui.ComponentGroup
 import java.util.*
 
-class Form : UI() {
+class Form : ComponentGroup {
 
     private val fields: MutableList<String> = mutableListOf()
 
@@ -26,19 +26,27 @@ class Form : UI() {
 
     var identifer: String = UUID.randomUUID().toString()
 
+    private val components: LinkedList<Component> = LinkedList<Component>()
+
     override fun addComponent(component: Component) {
-        super.addComponent(component)
+        components.add(component)
         if (component is AbstractInputField<*>) {
-            fields.add(component.input_name)
+            fields.add(component.identifer)
         }
     }
 
     override fun removeComponent(component: Component) {
-        super.removeComponent(component)
+        components.remove(component)
         if (component is AbstractInputField<*>) {
-            fields.remove(component.input_name)
+            fields.remove(component.identifer)
         }
     }
+
+
+    override fun getComponents(): List<Component> {
+        return components
+    }
+
 
 
 }
