@@ -14,13 +14,18 @@
  */
 package net.cleverdesk.cleverdesk.ui
 
+import com.google.gson.Gson
 import net.cleverdesk.cleverdesk.plugin.Response
 
 /**
  * An alert only contains [text] that will be displayed to the user.
  * This should be use for Errors other short messages.
  */
-class Alert : Response {
+class Alert(text: String) : Response {
     override val name: String = "Alert"
-    var text: String = ""
+    var text: String = text
+    override fun toJson(): String {
+        return Gson().toJson(this)
+    }
+
 }

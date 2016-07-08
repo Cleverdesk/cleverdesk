@@ -27,7 +27,7 @@ abstract class DatabaseObject {
 
     public abstract val plugin: Plugin
 
-    public var toMap: Map<String, Any?>?
+    public open var toMap: Map<String, Any?>?
         /**
          * Generates a Map by Kotlin Refelection
          */

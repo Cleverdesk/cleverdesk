@@ -19,8 +19,6 @@ import net.cleverdesk.cleverdesk.ui.Action
 
 
 class InputField() : AbstractInputField<String>() {
-    override var input_name: String = ""
-
         
     override val name: String = "InputField"
     var type: String = "text"

@@ -19,7 +19,6 @@ package net.cleverdesk.cleverdesk.ui.form
  */
 class Textarea() : AbstractInputField<String>() {
     override val name: String = "Textarea"
-    override var input_name: String = ""
 
     var readOnly: Boolean = false
 }

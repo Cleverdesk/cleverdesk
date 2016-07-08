@@ -28,11 +28,12 @@ import java.util.*
  */
 open class Plugin() {
 
-
     /**
      * The [Launcher] which loaded the Plugin.
      */
     public var launcher: Launcher? = null
+
+
     /**
      * TODO
      */
@@ -50,7 +51,7 @@ open class Plugin() {
      * The folder where the plugin can store files, local database or other stuff.
      * Example-Path (Name of the Plugin: Test) : .../plugins/Test/
      */
-    public val dataDir: File ?
+    public open val dataDir: File ?
         get() = File(launcher?.dataFolder?.absolutePath + "${description?.name?.escape()}/")
     /**
      * Mirrors the database which is located in the launcher. Plugin-only databases are at the moment not supported and not wanted.

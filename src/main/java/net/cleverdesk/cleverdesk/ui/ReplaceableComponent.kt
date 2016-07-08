@@ -14,9 +14,11 @@
  */
 package net.cleverdesk.cleverdesk.ui
 
+import net.cleverdesk.cleverdesk.plugin.Response
 import java.util.*
 
 
 abstract class ReplaceableComponent : Component {
-    public val identifer: String = UUID.randomUUID().toString()
+    public var identifer: String = UUID.randomUUID().toString()
+    public var additionalResponse: Response? = null
 }
