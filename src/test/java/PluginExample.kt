@@ -49,7 +49,7 @@ class CoolPage() : Page {
         val ui: UI = UI()
         val vorname: InputField = InputField()
         vorname.max = 20
-        vorname.input_name = "vorname"
+        vorname.identifer = "vorname"
         ui.addComponent(vorname)
         return ui
     }
