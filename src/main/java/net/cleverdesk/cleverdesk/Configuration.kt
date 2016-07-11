@@ -25,7 +25,7 @@ import net.cleverdesk.cleverdesk.ui.form.InputField
 /**
  * Created by schulerlabor on 22.06.16.
  */
-class Configuration(override val plugin: Plugin, override val name: String) : DatabaseObject(), Page {
+public open class Configuration(override val plugin: Plugin, override val name: String) : DatabaseObject(), Page {
 
 
     public fun refreshContent() {
@@ -37,7 +37,7 @@ class Configuration(override val plugin: Plugin, override val name: String) : Da
     public var content: MutableMap<String, String?> = mutableMapOf()
 
     @Database
-    public val identifer: String = name
+    public var identifer: String = name
 
 
     override val indices: Map<String, Any?>?

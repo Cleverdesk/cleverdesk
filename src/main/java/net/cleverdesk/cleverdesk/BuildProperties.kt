@@ -18,6 +18,6 @@ package net.cleverdesk.cleverdesk
  * Created by schulerlabor on 21.06.16.
  */
 object BuildProperties {
-    val VERSION: String = "0.0.2"
-    val TYPE: String = "ALPHA-DEVELOPMENT"
+    val VERSION: String = "0.0.3"
+    val TYPE: String = "PRE-ALPHA"
 }
