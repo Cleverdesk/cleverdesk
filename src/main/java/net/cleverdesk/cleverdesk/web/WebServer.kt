@@ -62,7 +62,7 @@ object WebServer {
         post("/auth") { req, res ->
             try {
                 val authReq = Gson().fromJson(req.body(), AuthRequest::class.java)
-                if (authReq.username == null || authReq.password == null || authReq.lifetime == null) {
+                if (authReq == null || authReq.username == null || authReq.password == null || authReq.lifetime == null) {
                     res.status(400)
                     JSONResponse(400, "Invalid arguments").to_json()
                 } else {
