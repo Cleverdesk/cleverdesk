@@ -38,6 +38,7 @@ object WebServer {
         before { request, response ->
             response.header("Access-Control-Allow-Origin", "*")
             response.header("Access-Control-Allow-Headers", "Content-Type")
+            response.header("Access-Control-Allow-Headers", "token")
         }
         get("/", { req, res ->
             JSONResponse(200, BuildProperties.VERSION + "/" + BuildProperties.TYPE).to_json()
