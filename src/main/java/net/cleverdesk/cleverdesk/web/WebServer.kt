@@ -37,6 +37,7 @@ object WebServer {
 
         before { request, response ->
             response.header("Access-Control-Allow-Origin", "*")
+            response.header("Access-Control-Allow-Headers", "Content-Type")
         }
         get("/", { req, res ->
             JSONResponse(200, BuildProperties.VERSION + "/" + BuildProperties.TYPE).to_json()
@@ -170,6 +171,9 @@ object WebServer {
         get("*", { req, res ->
             res.status(404)
             JSONResponse(404, "Not Found").to_json()
+        })
+        options("*", { req, res ->
+            res.status(200)
         })
     }
 
