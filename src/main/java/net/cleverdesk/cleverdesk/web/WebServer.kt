@@ -121,7 +121,7 @@ object WebServer {
                 res.status(status_code)
 
                 if (response == null) JSONResponse(status_code, "Not Found").to_json()
-                else JSONResponse(status_code, response.toJson()).to_json()
+                else JSONResponse(status_code, response).to_json()
             } else {
                 JSONResponse(403, "Access denied").to_json()
             }

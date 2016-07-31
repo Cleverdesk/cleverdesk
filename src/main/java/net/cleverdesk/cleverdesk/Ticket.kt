@@ -12,20 +12,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.cleverdesk.cleverdesk.ui
+package net.cleverdesk.cleverdesk
 
-import net.cleverdesk.cleverdesk.plugin.Response
+import net.cleverdesk.cleverdesk.database.DatabaseObject
+import net.cleverdesk.cleverdesk.plugin.Plugin
 
-/**
- * An alert only contains [text] that will be displayed to the user.
- * This should be use for Errors other short messages.
- */
-class Alert(text: String) : Response {
-    override val name: String = "Alert"
-    var text: String = text
-    /*
-    override fun toJson(): String {
-        return Gson().toJson(this)
-    }*/
+
+class Ticket(override val plugin: Plugin) : DatabaseObject() {
+
 
 }

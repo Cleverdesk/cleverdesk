@@ -14,7 +14,6 @@
  */
 package net.cleverdesk.cleverdesk.ui
 
-import com.google.gson.Gson
 import net.cleverdesk.cleverdesk.plugin.Response
 
 
@@ -25,10 +24,10 @@ class ReplaceResponse : Response {
     public fun replace(component: ReplaceableComponent, with: ReplaceableComponent) {
         components.put(component.identifer, with)
     }
-
-    override fun toJson(): String {
-        return Gson().toJson(this)
-    }
-
+    /*
+        override fun toJson(): String {
+            return Gson().toJson(this)
+        }
+    */
 
 }

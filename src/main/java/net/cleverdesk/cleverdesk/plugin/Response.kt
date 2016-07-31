@@ -18,5 +18,4 @@ import net.cleverdesk.cleverdesk.ui.Component
 
 
 interface Response : Component {
-    public fun toJson(): String
 }
