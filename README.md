@@ -4,6 +4,7 @@
 Cleverdesk is multifunctional, modular and modern backend- and frontendsystem which combines cross-platforming and simple coding. Cleverdesk is also a support-desk-system which provides a couple of
  channels like E-Mail, Phone or SMS. 
 The goal is to make coding and using Cleverdesk simple and intuitive.
+
 Learn more about Cleverdesk on [Cleverdesk.net](https://www.cleverdesk.net)
 ## Status
 A the moment Cleverdesk is in progress but the good message is you can be a part of cleverdesk! Simply have a look at chapter "Get involved".
