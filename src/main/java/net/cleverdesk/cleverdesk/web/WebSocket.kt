@@ -41,6 +41,7 @@ class WebSocket(handlerManager: WebHandlerManager, launcher: Launcher) {
                 msg.channel = channel
                 msg.message = message
                 msg.user = received_message!!.user
+                msg.request_id = received_message!!.request_id
                 session.remote.sendString(Gson().toJson(msg))
             }
 
@@ -49,8 +50,8 @@ class WebSocket(handlerManager: WebHandlerManager, launcher: Launcher) {
                 msg.channel = channel
                 msg.message = message
                 msg.user = received_message!!.user
+                msg.request_id = received_message!!.request_id
                 session.remote.sendString(Gson().toJson(msg))
-
             }
 
         }, received_message)
