@@ -17,7 +17,7 @@ package net.cleverdesk.cleverdesk.database
 import com.mongodb.client.MongoDatabase
 import net.cleverdesk.cleverdesk.launcher.Launcher
 import net.cleverdesk.cleverdesk.plugin.Plugin
-import net.cleverdesk.cleverdesk.web.escape
+import net.cleverdesk.cleverdesk.web.http.escape
 import org.bson.Document
 import org.bson.types.ObjectId
 import java.util.*

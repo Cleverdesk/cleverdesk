@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.cleverdesk.cleverdesk.web
+package net.cleverdesk.cleverdesk.web.http
 
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts

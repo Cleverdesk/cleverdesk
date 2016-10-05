@@ -19,7 +19,7 @@ package net.cleverdesk.cleverdesk.plugin
 import net.cleverdesk.cleverdesk.database.Database
 import net.cleverdesk.cleverdesk.launcher.Launcher
 import net.cleverdesk.cleverdesk.listener.ListenerManager
-import net.cleverdesk.cleverdesk.web.escape
+import net.cleverdesk.cleverdesk.web.http.escape
 import java.io.File
 import java.util.*
 

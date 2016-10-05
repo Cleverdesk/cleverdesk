@@ -22,7 +22,7 @@ import net.cleverdesk.cleverdesk.listener.ListenerManager
 import net.cleverdesk.cleverdesk.plugin.Plugin
 import net.cleverdesk.cleverdesk.plugin.PluginDescription
 import net.cleverdesk.cleverdesk.plugin.PluginLoader
-import net.cleverdesk.cleverdesk.web.WebServer
+import net.cleverdesk.cleverdesk.web.http.WebServer
 import spark.Spark
 import java.io.File
 import java.util.*

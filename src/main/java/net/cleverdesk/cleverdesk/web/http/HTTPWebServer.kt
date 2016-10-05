@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.cleverdesk.cleverdesk.web
+package net.cleverdesk.cleverdesk.web.http
 
 /**
  * Created by jkuche on 23.04.16.
@@ -30,6 +30,7 @@ import spark.Spark.*
 import java.net.URLEncoder
 import java.util.*
 
+@Deprecated("")
 object WebServer {
     @JvmStatic fun start(launcher: Launcher, port: Int) {
         val auth = Authentication(launcher)
@@ -90,7 +91,7 @@ object WebServer {
         get(":plugin/:page", { req, res ->
             if (checkAccess(req.params(":plugin") + "." + req.params(":page"), req, auth)) {
                 var status_code = 404
-                var response: net.cleverdesk.cleverdesk.plugin.Response? = null
+                var response: Response? = null
                 for (plugin in  launcher.plugins) {
                     if (plugin.description != null &&
                             (plugin.description as PluginDescription).name.escape().equals(req.params(":plugin"), true)) {
