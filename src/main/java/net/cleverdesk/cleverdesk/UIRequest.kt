@@ -18,6 +18,7 @@ package net.cleverdesk.cleverdesk
  * Created by jonas on 03.05.16.
  */
 public interface UIRequest {
+    @Deprecated("Replaced by the new WebSocket-API")
     public val attributes: Map<String, Any>
     public val response_target: Any
 }

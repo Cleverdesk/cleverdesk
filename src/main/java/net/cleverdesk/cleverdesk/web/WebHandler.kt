@@ -11,6 +11,7 @@ interface WebHandler {
      */
     val forChannels: Array<String>
 
+
     /**
      * will be called if a message in a channel in [forChannels] is called.
      * @param user Represents the requesting user and is null íf a guest requests.

@@ -1,7 +1,9 @@
 package net.cleverdesk.cleverdesk.web.handlers
 
+import net.cleverdesk.cleverdesk.UIRequest
 import net.cleverdesk.cleverdesk.launcher.Launcher
 import net.cleverdesk.cleverdesk.plugin.PluginDescription
+import net.cleverdesk.cleverdesk.web.DefaultChannel
 import net.cleverdesk.cleverdesk.web.WebHandler
 import net.cleverdesk.cleverdesk.web.WebMessage
 import net.cleverdesk.cleverdesk.web.WebResponseProvider
@@ -27,45 +29,30 @@ class PageHandler(launcher: Launcher) : WebHandler {
                         pages.put(page.name, "${(plugin.description as PluginDescription).name.escape()}/${page.name.escape()}")
                     }
                 }
-                message.message = pages
+                provider.sendMessage("pages", pages)
             }
             "pages" -> {
-                /** var status_code = 404
-                var response: Response? = null
-                for (plugin in  launcher.plugins) {
-                if (plugin.description != null &&
-                (plugin.description as PluginDescription).name.escape().equals(req.params(":plugin"), true)) {
-                for (page in plugin.pages) {
-                if (page.name.escape().equals(req.params(":page"), true)) {
+                val map = message.message as Map<String, String>
 
-                status_code = 200
-                val ui_req: UIRequest = object : UIRequest {
-                override val response_target: Any
-                get() = req.ip()
-                override val attributes: Map<String, Any>
-                get() = mapOf()
+                val page = map.get("page")
+                val plugin = map.get("plugin");
+                for (plugin in launcher.plugins) {
+                    if (plugin.description != null && (plugin.description as PluginDescription).name.escape().equals(page, true)) {
+                        for (page in plugin.pages) {
+                            if (page.name.escape().equals(page)) {
+                                val ui_req: UIRequest = object : UIRequest {
+                                    override val attributes: Map<String, Any> = mapOf()
+                                    override val response_target: Any = provider
 
-                }
-
-                val user = auth.authUser(req.headers("token"))
-                if (user == null) break;
-
-                response = page.response(user, ui_req)
-                break
-                }
-                }
-                break
-                } else {
-                continue
-                }
+                                }
+                                provider.sendMessage("page", page.response(message.user, ui_req))
+                                return;
+                            }
+                        }
+                    }
 
                 }
-
-                res.status(status_code)
-
-                if (response == null) JSONResponse(status_code, "Not Found").to_json()
-                else JSONResponse(status_code, response).to_json()**/
-                //TODO implement Page return
+                provider.sendMessage(DefaultChannel.ERROR.name, "Page not found")
             }
         }
     }

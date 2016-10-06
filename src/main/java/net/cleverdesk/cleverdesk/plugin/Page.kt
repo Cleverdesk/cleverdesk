@@ -32,5 +32,5 @@ interface Page {
      * @return The response which the backend will send to the frontend.
      * @see UI
      */
-    public open fun response(user: User, request: UIRequest): Response
+    public open fun response(user: User?, request: UIRequest): Response
 }

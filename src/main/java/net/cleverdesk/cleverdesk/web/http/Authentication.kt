@@ -26,7 +26,7 @@ import java.util.*
 /**
  * Created by schulerlabor on 21.06.16.
  */
-class Authentication(launcher: Launcher) {
+open class Authentication(launcher: Launcher) {
 
     private final val apiKey = MacProvider.generateKey()
     private final val launcher = launcher
@@ -84,6 +84,7 @@ class Authentication(launcher: Launcher) {
     private fun hashPassword(password: String): String {
         return password
     }
+
 }
 
 class AuthenticationException(override val message: String?) : Exception() {
