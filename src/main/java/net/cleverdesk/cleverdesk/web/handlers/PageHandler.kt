@@ -21,7 +21,7 @@ class PageHandler(launcher: Launcher) : WebHandler {
 
     override fun handleMessage(provider: WebResponseProvider, message: WebMessage) {
         when (message.channel) {
-            "page" -> {
+            "pages" -> {
                 val pages: HashMap<String, String> = HashMap()
                 for (plugin in launcher.plugins) {
                     if (plugin.description == null) continue
@@ -31,7 +31,7 @@ class PageHandler(launcher: Launcher) : WebHandler {
                 }
                 provider.sendMessage("pages", pages)
             }
-            "pages" -> {
+            "page" -> {
                 val map = message.message as Map<String, String>
 
                 val page = map.get("page")
@@ -45,7 +45,7 @@ class PageHandler(launcher: Launcher) : WebHandler {
                                     override val response_target: Any = provider
 
                                 }
-                                provider.sendMessage("page", page.response(message.user, ui_req))
+                                //provider.sendMessage("page", page.response(message.user, ui_req))
                                 return;
                             }
                         }

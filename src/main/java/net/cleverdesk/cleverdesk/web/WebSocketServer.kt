@@ -43,20 +43,12 @@ public class WebSocketServer() {
             }
 
             override fun sendMessage(channel: String, message: Any) {
-                val msg = WebMessage()
-                msg.channel = channel
-                msg.message = message
-                msg.user = received_message!!.user
-                msg.request_id = received_message!!.request_id
+                val msg = WebMessage(message, channel, received_message!!.request_id)
                 session.remote.sendString(Gson().toJson(msg))
             }
 
             override fun sendMessage(channel: String, message: String) {
-                val msg = WebMessage()
-                msg.channel = channel
-                msg.message = message
-                msg.user = received_message!!.user
-                msg.request_id = received_message!!.request_id
+                val msg = WebMessage(message, channel, received_message!!.request_id)
                 session.remote.sendString(Gson().toJson(msg))
             }
 

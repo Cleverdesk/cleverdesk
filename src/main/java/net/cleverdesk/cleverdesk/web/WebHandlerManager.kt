@@ -14,6 +14,7 @@ class WebHandlerManager : WebHandler {
      * Redirect message to all handler which use [channel] as Channel.
      */
     override fun handleMessage(provider: WebResponseProvider, message: WebMessage) {
+        if (!handlerChannels.containsKey(message.channel)) return;
         for (handler in handlerChannels.get(message.channel)!!) {
             handler.handleMessage(provider, message)
         }

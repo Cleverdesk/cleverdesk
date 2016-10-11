@@ -22,7 +22,7 @@ class AuthenticationHandler(launcher: Launcher) : WebHandler, Authentication(lau
             }
             DefaultChannel.APPROVE_TOKEN.name -> {
                 provider.user = authUser(message.message.toString())
-                message.user = provider.user
+                //message.user = provider.user
                 if (provider.user == null) {
                     provider.sendMessage(DefaultChannel.ERROR.name, "Your session is inactive.")
                 } else {
