@@ -27,7 +27,7 @@
 
     <groupId>net.cleverdesk</groupId>
     <artifactId>cleverdesk</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
 
     <packaging>jar</packaging>
 

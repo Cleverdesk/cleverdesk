@@ -23,7 +23,6 @@ import net.cleverdesk.cleverdesk.plugin.Plugin
 import net.cleverdesk.cleverdesk.plugin.PluginDescription
 import net.cleverdesk.cleverdesk.plugin.PluginLoader
 import net.cleverdesk.cleverdesk.web.WebSocket
-import net.cleverdesk.cleverdesk.web.http.WebServer
 import spark.Spark
 import java.io.File
 import java.util.*
@@ -112,7 +111,7 @@ class Launcher : Plugin() {
 
         println("Starting WebServer on Port ${port}")
         //Start Web-Server(LAGACY) + WebSokcet ( Next Gen)
-        WebServer.start(this, port.toInt())
+        // WebServer.start(this, port.toInt())
         WebSocket.start(this, port.toInt() + 1)
 
     }
