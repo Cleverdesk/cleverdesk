@@ -7,6 +7,7 @@ import spark.Spark.*
  */
 
 object WebSocket {
+    public open val handlerManager = WebHandlerManager()
     open fun start(launcher: Launcher, port: Int) {
         webSocket("/ws", WebSocketServer::class.java)
         staticFileLocation("/static")

@@ -112,7 +112,7 @@ class Launcher : Plugin() {
         println("Starting WebServer on Port ${port}")
         //Start Web-Server(LAGACY) + WebSokcet ( Next Gen)
         // WebServer.start(this, port.toInt())
-        WebSocket.start(this, port.toInt() + 1)
+        WebSocket.start(this, port.toInt())
 
     }
 

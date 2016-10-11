@@ -2,41 +2,40 @@ package net.cleverdesk.cleverdesk.web
 
 import com.google.gson.Gson
 import net.cleverdesk.cleverdesk.User
-import net.cleverdesk.cleverdesk.launcher.Launcher
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage
+import org.eclipse.jetty.websocket.api.annotations.WebSocket
 import java.util.*
 import java.util.concurrent.ConcurrentLinkedQueue
 
 /**
  * provides an api interface to access all function in realtime.
  */
-class WebSocketServer(handlerManager: WebHandlerManager, launcher: Launcher) {
+@WebSocket
+public class WebSocketServer() {
 
-    private val handlerManager = handlerManager
-    private val launcher = launcher
 
 
     //Stores and manages session
     private var sessions: Queue<Session> = ConcurrentLinkedQueue<Session>();
 
     @OnWebSocketConnect
-    open fun connected(session: Session) {
+    open fun onConnect(session: Session) {
         sessions.add(session)
 
     }
 
     @OnWebSocketClose
-    open fun closed(session: Session, statusCode: Int, reason: String) {
+    public open fun onClose(session: Session, statusCode: Int, reason: String) {
         sessions.remove(session)
     }
 
     @OnWebSocketMessage
-    open fun message(session: Session, message: String) {
+    public open fun onMessage(session: Session, message: String) {
         val received_message = Gson().fromJson(message, WebMessage::class.java)
-        handlerManager.handleMessage(object : WebResponseProvider {
+        net.cleverdesk.cleverdesk.web.WebSocket.handlerManager.handleMessage(object : WebResponseProvider {
             override var user: User? = null
 
             override fun saveInSession(key: String, value: Any) {
