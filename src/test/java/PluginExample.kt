@@ -45,7 +45,7 @@ class PluginExample : Plugin() {
 class CoolPage() : Page {
     override val name: String = "coolpage"
 
-    override fun response(user: User, request: UIRequest): UI {
+    override fun response(user: User?, request: UIRequest): UI {
         val ui: UI = UI()
         val vorname: InputField = InputField()
         vorname.max = 20

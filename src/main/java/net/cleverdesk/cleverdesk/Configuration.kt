@@ -44,7 +44,7 @@ public open class Configuration(override val plugin: Plugin, override val name: 
         get() = mutableMapOf(Pair("identifer", identifer))
 
 
-    override fun response(user: User, request: UIRequest): Response {
+    override fun response(user: User?, request: UIRequest): Response {
 
         if (request.attributes.size > 0) {
             refreshContent()
