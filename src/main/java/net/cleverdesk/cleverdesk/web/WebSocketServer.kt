@@ -1,6 +1,7 @@
 package net.cleverdesk.cleverdesk.web
 
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import net.cleverdesk.cleverdesk.User
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose
@@ -34,24 +35,30 @@ public class WebSocketServer() {
 
     @OnWebSocketMessage
     public open fun onMessage(session: Session, message: String) {
-        val received_message = Gson().fromJson(message, WebMessage::class.java)
-        net.cleverdesk.cleverdesk.web.WebSocket.handlerManager.handleMessage(object : WebResponseProvider {
-            override var user: User? = null
+        try {
+            val received_message = Gson().fromJson(message, WebMessage::class.java)
+            net.cleverdesk.cleverdesk.web.WebSocket.handlerManager.handleMessage(object : WebResponseProvider {
+                override var user: User? = null
 
-            override fun saveInSession(key: String, value: Any) {
-                throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+                override fun saveInSession(key: String, value: Any) {
+                    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
 
-            override fun sendMessage(channel: String, message: Any) {
-                val msg = WebMessage(message, channel, received_message!!.request_id)
-                session.remote.sendString(Gson().toJson(msg))
-            }
+                override fun sendMessage(channel: String, message: Any) {
+                    val msg = WebMessage(message, channel, received_message!!.request_id)
+                    session.remote.sendString(Gson().toJson(msg))
+                }
 
-            override fun sendMessage(channel: String, message: String) {
-                val msg = WebMessage(message, channel, received_message!!.request_id)
-                session.remote.sendString(Gson().toJson(msg))
-            }
+                override fun sendMessage(channel: String, message: String) {
+                    val msg = WebMessage(message, channel, received_message!!.request_id)
+                    session.remote.sendString(Gson().toJson(msg))
+                }
 
-        }, received_message)
+            }, received_message)
+        } catch (ex: JsonSyntaxException) {
+            val error_message = WebMessage("Please use the WebMessage-Syntax: ${ex.message}", DefaultChannel.ERROR.name, "")
+            session.remote.sendString(Gson().toJson(error_message))
+        }
+
     }
 }

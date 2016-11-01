@@ -19,9 +19,9 @@ import net.cleverdesk.cleverdesk.plugin.Response
 
 class ReplaceResponse : Response {
     override val name: String = "Replace"
-    private val components: MutableMap<String, ReplaceableComponent> = mutableMapOf()
+    private val components: MutableMap<String, IdentifiableComponent> = mutableMapOf()
 
-    public fun replace(component: ReplaceableComponent, with: ReplaceableComponent) {
+    public fun replace(component: IdentifiableComponent, with: IdentifiableComponent) {
         components.put(component.identifer, with)
     }
     /*

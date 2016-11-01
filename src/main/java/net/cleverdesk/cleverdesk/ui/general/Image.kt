@@ -14,12 +14,12 @@
  */
 package net.cleverdesk.cleverdesk.ui.general
 
-import net.cleverdesk.cleverdesk.ui.ReplaceableComponent
+import net.cleverdesk.cleverdesk.ui.IdentifiableComponent
 
 /**
  * A dynamic loaded image.
  */
-class Image() : ReplaceableComponent() {
+class Image() : IdentifiableComponent() {
     override val name: String = "Image"
 
     /**

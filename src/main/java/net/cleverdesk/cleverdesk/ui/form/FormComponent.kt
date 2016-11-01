@@ -14,8 +14,8 @@
  */
 package net.cleverdesk.cleverdesk.ui.form
 
-import net.cleverdesk.cleverdesk.ui.ReplaceableComponent
+import net.cleverdesk.cleverdesk.ui.IdentifiableComponent
 
-abstract class FormComponent : ReplaceableComponent() {
+abstract class FormComponent : IdentifiableComponent() {
     public var enabled: Boolean = true
 }

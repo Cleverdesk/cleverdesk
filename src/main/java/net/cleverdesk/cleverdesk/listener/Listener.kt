@@ -16,4 +16,7 @@
 package net.cleverdesk.cleverdesk.listener
 
 interface Listener {
+
 }
+
+annotation class ListnerDefinition(val identifer: String)

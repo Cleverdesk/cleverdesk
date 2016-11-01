@@ -15,5 +15,4 @@
 
 package net.cleverdesk.cleverdesk.listener
 
-interface ListenerManager : List<Listener> {
-}
+interface ListenerManager : MutableList<Listener> {}

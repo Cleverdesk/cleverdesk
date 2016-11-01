@@ -18,7 +18,7 @@ import net.cleverdesk.cleverdesk.plugin.Response
 import java.util.*
 
 
-abstract class ReplaceableComponent : Component {
+abstract class IdentifiableComponent : Component {
     public var identifer: String = UUID.randomUUID().toString()
     public var additionalResponse: Response? = null
 }

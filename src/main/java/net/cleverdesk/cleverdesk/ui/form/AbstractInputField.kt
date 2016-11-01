@@ -15,9 +15,10 @@
 
 package net.cleverdesk.cleverdesk.ui.form
 
+import net.cleverdesk.cleverdesk.ui.IdentifiableComponent
 import net.cleverdesk.cleverdesk.ui.TextColor
 
-abstract class AbstractInputField<T>() : FormComponent() {
+abstract class AbstractInputField<T>() : IdentifiableComponent() {
 
 
     public var value: T? = null
