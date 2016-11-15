@@ -15,8 +15,6 @@
 
 package net.cleverdesk.cleverdesk.listener
 
-interface Listener {
-
+interface Listener<E : Event> {
+    fun handleEvent(event: E)
 }
-
-annotation class ListnerDefinition(val identifer: String)
