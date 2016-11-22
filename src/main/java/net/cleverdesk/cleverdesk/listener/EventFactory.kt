@@ -12,19 +12,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.cleverdesk.cleverdesk.web
+package net.cleverdesk.cleverdesk.listener
 
-import net.cleverdesk.cleverdesk.launcher.Launcher
-import spark.Spark.*
 /**
- * Created by SV on 11.10.2016.
+ * Geneartes a Event of type [T] from a given [content]-Map.
  */
-
-object WebSocket {
-    public open val handlerManager = WebHandlerManager()
-    open fun start(launcher: Launcher, port: Int) {
-        webSocket("/ws", WebSocketServer::class.java)
-        staticFileLocation("/static")
-        init()
-    }
+open interface EventFactory<T : Event> {
+    /**
+     * Generates the event.
+     * @param content parsable content
+     * @return Event of type [T]
+     */
+    fun generateEvent(content: Map<String, Any>): T
 }

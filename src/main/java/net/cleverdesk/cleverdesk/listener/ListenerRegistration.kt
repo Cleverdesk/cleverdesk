@@ -12,19 +12,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.cleverdesk.cleverdesk.web
+package net.cleverdesk.cleverdesk.listener
 
-import net.cleverdesk.cleverdesk.launcher.Launcher
-import spark.Spark.*
-/**
- * Created by SV on 11.10.2016.
- */
-
-object WebSocket {
-    public open val handlerManager = WebHandlerManager()
-    open fun start(launcher: Launcher, port: Int) {
-        webSocket("/ws", WebSocketServer::class.java)
-        staticFileLocation("/static")
-        init()
-    }
-}
+data class ListenerRegistration<T : Event>(val listener: T, val eventFactory: EventFactory<T>);

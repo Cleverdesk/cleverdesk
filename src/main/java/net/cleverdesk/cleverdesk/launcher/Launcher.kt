@@ -17,8 +17,8 @@ package net.cleverdesk.cleverdesk.launcher
 
 import net.cleverdesk.cleverdesk.database.Database
 import net.cleverdesk.cleverdesk.database.drivers.MongoDriver
-import net.cleverdesk.cleverdesk.listener.Listener
 import net.cleverdesk.cleverdesk.listener.ListenerManager
+import net.cleverdesk.cleverdesk.listener.ListenerRegistration
 import net.cleverdesk.cleverdesk.plugin.Plugin
 import net.cleverdesk.cleverdesk.plugin.PluginDescription
 import net.cleverdesk.cleverdesk.plugin.PluginLoader
@@ -36,8 +36,8 @@ class Launcher : Plugin() {
     public override var database: Database<*, *>? = null
 
 
-
-    public override val listenerManager: ListenerManager = object : LinkedList<Listener>(), ListenerManager {}
+    //TODO Integrate listener manager
+    public override val listenerManager: ListenerManager = object : LinkedList<ListenerRegistration<*>>(), ListenerManager {}
 
 
     /**

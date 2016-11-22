@@ -16,18 +16,17 @@
   ~   without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   ~
   ~   See the GNU General Public License for more details. You should have received a copy of the GNU
-  ~   General Public License along with Cleverdesk. If not, see <http://www.gnu.org/licenses/>.
+  ~   General Public License along with Cleverdesk. If not, see <http://www.gnu.org/licenses />.
   ~
   -->
 
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.cleverdesk</groupId>
     <artifactId>cleverdesk</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
 
     <packaging>jar</packaging>
 
@@ -45,7 +44,8 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/Cleverdesk/cleverdesk.git</url>
+        <url>scm:git:https://github.com/Cleverdesk/cleverdesk.git</url>
+        <developerConnection>scm:git:https://github.com/Cleverdesk/cleverdesk.git</developerConnection>
     </scm>
 
     <properties>
@@ -205,7 +205,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>LATEST</version>
+            <version>2.7</version>
         </dependency>
         <dependency>
         	<groupId>com.sparkjava</groupId>

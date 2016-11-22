@@ -15,4 +15,6 @@
 
 package net.cleverdesk.cleverdesk.listener
 
-interface ListenerManager : MutableList<Listener> {}
+
+interface ListenerManager : MutableList<ListenerRegistration<*>> {}
+
