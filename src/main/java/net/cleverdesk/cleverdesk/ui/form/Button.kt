@@ -16,12 +16,22 @@ package net.cleverdesk.cleverdesk.ui.form
 
 import net.cleverdesk.cleverdesk.ui.Action
 import net.cleverdesk.cleverdesk.ui.TextColor
+import net.cleverdesk.cleverdesk.ui.events.OnClickListener
 
 class Button : FormComponent() {
     override val name: String = "Button"
     var action: Action? = null
     var label: String? = null
     var type: TextColor? = null
+    @Transient
+    var onClickListener: OnClickListener?
+        get() {
+            fetchComponentListeners().forEach { i ->
+                if (i.listener is OnClickListener)
+            }
+        }
+        set(value) {
+        }
 
 }
 

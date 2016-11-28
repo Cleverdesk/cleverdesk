@@ -14,4 +14,4 @@
  */
 package net.cleverdesk.cleverdesk.listener
 
-data class ListenerRegistration<T : Event>(val listener: T, val eventFactory: EventFactory<T>);
+data class ListenerRegistration<T : Event>(val listener: T, val identifer: String, val eventFactory: EventFactory<T>);

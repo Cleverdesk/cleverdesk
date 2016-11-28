@@ -14,6 +14,8 @@
  */
 package net.cleverdesk.cleverdesk.ui
 
+import net.cleverdesk.cleverdesk.listener.ListenerManager
+import net.cleverdesk.cleverdesk.listener.ListenerRegistration
 import net.cleverdesk.cleverdesk.plugin.Response
 import java.util.*
 
@@ -21,4 +23,32 @@ import java.util.*
 abstract class IdentifiableComponent : Component {
     public var identifer: String = UUID.randomUUID().toString()
     public var additionalResponse: Response? = null
+
+
+    private var listeners: MutableMap<String, ListenerRegistration<*>> = mutableMapOf()
+
+
+    /**
+     * Registers [registration] as a component-wide listener. A component-wide listener will be called until the component is send to
+     * the client. The listener is nassacary if the [UI] is already sent to the user.
+     */
+    public fun registerComponentListener(registration: ListenerRegistration<*>) {
+        listeners.put(registration.identifer, registration)
+    }
+
+    /**
+     * Unregisters [registration] from component-wide-[listeners].
+     */
+    public fun unregisterComponentListener(registration: ListenerRegistration<*>) {
+        listeners.remove(registration.identifer)
+    }
+
+    /**
+     * @return The [ListenerManager] of all component-wide registered listeners.
+     * @see registerComponentListener
+     */
+    public fun fetchComponentListeners(): ListenerManager {
+
+        return object : ListenerManager, LinkedList<ListenerRegistration<*>>(listeners.values) {}
+    }
 }
