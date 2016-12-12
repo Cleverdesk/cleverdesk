@@ -33,14 +33,14 @@ abstract class IdentifiableComponent : Component {
      * the client. The listener is nassacary if the [UI] is already sent to the user.
      */
     public fun registerComponentListener(registration: ListenerRegistration<*>) {
-        listeners.put(registration.identifer, registration)
+        listeners.put(registration.event_type.canonicalName, registration)
     }
 
     /**
      * Unregisters [registration] from component-wide-[listeners].
      */
     public fun unregisterComponentListener(registration: ListenerRegistration<*>) {
-        listeners.remove(registration.identifer)
+        listeners.remove(registration.event_type.canonicalName)
     }
 
     /**

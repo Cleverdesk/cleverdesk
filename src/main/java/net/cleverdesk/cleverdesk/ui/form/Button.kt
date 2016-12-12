@@ -14,8 +14,10 @@
  */
 package net.cleverdesk.cleverdesk.ui.form
 
+import net.cleverdesk.cleverdesk.listener.ListenerRegistration
 import net.cleverdesk.cleverdesk.ui.Action
 import net.cleverdesk.cleverdesk.ui.TextColor
+import net.cleverdesk.cleverdesk.ui.events.OnClickEvent
 import net.cleverdesk.cleverdesk.ui.events.OnClickListener
 
 class Button : FormComponent() {
@@ -23,14 +25,17 @@ class Button : FormComponent() {
     var action: Action? = null
     var label: String? = null
     var type: TextColor? = null
-    @Transient
     var onClickListener: OnClickListener?
         get() {
             fetchComponentListeners().forEach { i ->
-                if (i.listener is OnClickListener)
+                if (i.listener is OnClickListener) {
+                    return i.listener
+                }
             }
+            return null
         }
         set(value) {
+            registerComponentListener(ListenerRegistration(value!!, OnClickEvent::class.java))
         }
 
 }

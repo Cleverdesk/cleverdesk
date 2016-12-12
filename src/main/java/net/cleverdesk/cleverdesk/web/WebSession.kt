@@ -14,15 +14,27 @@
  */
 package net.cleverdesk.cleverdesk.web
 
-import net.cleverdesk.cleverdesk.launcher.Launcher
-import spark.Spark.*
+import net.cleverdesk.cleverdesk.User
 
+class WebSession<T>(session: T) {
+    val session: T = session
+    var user: User? = null
 
-object WebSocket {
-    public open val handlerManager = WebHandlerManager()
-    open fun start(launcher: Launcher, port: Int) {
-        webSocket("/ws", WebSocketServer::class.java)
-        staticFileLocation("/static")
-        init()
+    val savedInSession: MutableMap<String, Any> = mutableMapOf()
+
+    /**
+     * Save [value] in this [WebSession] by [key]. This data will be lost on memory clear or restart.
+     */
+    fun save(key: String, value: Any) {
+        savedInSession.put(key, value)
     }
+
+    /**
+     * Restores [key] that was saved by the [save]-method.
+     */
+    fun restore(key: String): Any? {
+        return savedInSession.get(key)
+    }
+
+
 }

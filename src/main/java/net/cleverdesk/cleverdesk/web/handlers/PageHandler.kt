@@ -17,10 +17,7 @@ package net.cleverdesk.cleverdesk.web.handlers
 import net.cleverdesk.cleverdesk.UIRequest
 import net.cleverdesk.cleverdesk.launcher.Launcher
 import net.cleverdesk.cleverdesk.plugin.PluginDescription
-import net.cleverdesk.cleverdesk.web.DefaultChannel
-import net.cleverdesk.cleverdesk.web.WebHandler
-import net.cleverdesk.cleverdesk.web.WebMessage
-import net.cleverdesk.cleverdesk.web.WebResponseProvider
+import net.cleverdesk.cleverdesk.web.*
 import net.cleverdesk.cleverdesk.web.http.escape
 import java.util.*
 
@@ -33,7 +30,7 @@ class PageHandler(launcher: Launcher) : WebHandler {
 
     override val forChannels: Array<String> = arrayOf("page", "pages")
 
-    override fun handleMessage(provider: WebResponseProvider, message: WebMessage) {
+    override fun handleMessage(provider: WebResponseProvider, inSession: WebSession<*>, message: WebMessage) {
         when (message.channel) {
             "pages" -> {
                 val pages: HashMap<String, String> = HashMap()
@@ -56,10 +53,9 @@ class PageHandler(launcher: Launcher) : WebHandler {
                             if (page.name.escape().equals(page)) {
                                 val ui_req: UIRequest = object : UIRequest {
                                     override val attributes: Map<String, Any> = mapOf()
-                                    override val response_target: Any = provider
-
+                                    override val response_target: Any = inSession
                                 }
-                                //provider.sendMessage("page", page.response(message.user, ui_req))
+                                provider.sendMessage("page", page.response(inSession.user, ui_req))
                                 return;
                             }
                         }

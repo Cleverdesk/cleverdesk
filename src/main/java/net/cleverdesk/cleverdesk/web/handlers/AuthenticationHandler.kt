@@ -15,10 +15,7 @@
 package net.cleverdesk.cleverdesk.web.handlers
 
 import net.cleverdesk.cleverdesk.launcher.Launcher
-import net.cleverdesk.cleverdesk.web.DefaultChannel
-import net.cleverdesk.cleverdesk.web.WebHandler
-import net.cleverdesk.cleverdesk.web.WebMessage
-import net.cleverdesk.cleverdesk.web.WebResponseProvider
+import net.cleverdesk.cleverdesk.web.*
 import net.cleverdesk.cleverdesk.web.http.Authentication
 
 /**
@@ -28,16 +25,16 @@ class AuthenticationHandler(launcher: Launcher) : WebHandler, Authentication(lau
 
     override val forChannels: Array<String> = arrayOf(DefaultChannel.APPROVE_TOKEN.name, DefaultChannel.APPROVE_TOKEN.name, DefaultChannel.LOGOUT.name)
 
-    override fun handleMessage(provider: WebResponseProvider, message: WebMessage) {
+    override fun handleMessage(provider: WebResponseProvider, inSession: WebSession<*>, message: WebMessage) {
         when (message.channel) {
             DefaultChannel.LOGOUT.name -> {
-                provider.user = null
+                inSession.user = null
                 provider.sendMessage(DefaultChannel.LOGOUT.name, "success")
             }
             DefaultChannel.APPROVE_TOKEN.name -> {
-                provider.user = authUser(message.message.toString())
+                inSession.user = authUser(message.message.toString())
                 //message.user = provider.user
-                if (provider.user == null) {
+                if (inSession.user == null) {
                     provider.sendMessage(DefaultChannel.ERROR.name, "Your session is inactive.")
                 } else {
                     provider.sendMessage(DefaultChannel.APPROVE_TOKEN.name, "success")

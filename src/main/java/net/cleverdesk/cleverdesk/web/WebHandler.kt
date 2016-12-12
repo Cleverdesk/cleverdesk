@@ -14,8 +14,6 @@
  */
 package net.cleverdesk.cleverdesk.web
 
-import net.cleverdesk.cleverdesk.User
-
 /**
  * An interface which react on a request by an [User] or guest.
  */
@@ -31,5 +29,5 @@ interface WebHandler {
      * @param user Represents the requesting user and is null íf a guest requests.
      * @param provider is a provider where you could send a message to [user] or the guest.
      */
-    fun handleMessage(provider: WebResponseProvider, message: WebMessage)
+    fun handleMessage(provider: WebResponseProvider, inSession: WebSession<*>, message: WebMessage)
 }

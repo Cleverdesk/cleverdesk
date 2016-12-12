@@ -16,17 +16,14 @@ package net.cleverdesk.cleverdesk.web
 
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
-import net.cleverdesk.cleverdesk.User
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage
 import org.eclipse.jetty.websocket.api.annotations.WebSocket
-import java.util.*
-import java.util.concurrent.ConcurrentLinkedQueue
 
 /**
- * provides an api interface to access all function in realtime.
+ * provides an api interface to access all functions in time.
  */
 @WebSocket
 public class WebSocketServer() {
@@ -34,11 +31,13 @@ public class WebSocketServer() {
 
 
     //Stores and manages session
-    private var sessions: Queue<Session> = ConcurrentLinkedQueue<Session>();
+    private var sessions: MutableMap<Session, WebSession<Session>> = mutableMapOf()
+
 
     @OnWebSocketConnect
     open fun onConnect(session: Session) {
-        sessions.add(session)
+        sessions.put(session, WebSession(session))
+
 
     }
 
@@ -47,16 +46,22 @@ public class WebSocketServer() {
         sessions.remove(session)
     }
 
+    /**
+     * Handles a WebSocket-message.
+     * 1. Check if session is registered
+     * 1b. If not register the session.
+     * 2. Parse message into a [WebMessage] or send an error-report.
+     * 3. redirect the message to the channel-based [WebHandler]
+     */
     @OnWebSocketMessage
     public open fun onMessage(session: Session, message: String) {
         try {
+            if (!sessions.containsKey(session)) {
+                sessions.put(session, WebSession(session))
+            }
+
             val received_message = Gson().fromJson(message, WebMessage::class.java)
             net.cleverdesk.cleverdesk.web.WebSocket.handlerManager.handleMessage(object : WebResponseProvider {
-                override var user: User? = null
-
-                override fun saveInSession(key: String, value: Any) {
-                    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
 
                 override fun sendMessage(channel: String, message: Any) {
                     val msg = WebMessage(message, channel, received_message!!.request_id)
@@ -68,7 +73,7 @@ public class WebSocketServer() {
                     session.remote.sendString(Gson().toJson(msg))
                 }
 
-            }, received_message)
+            }, sessions.get(session)!!, received_message)
         } catch (ex: JsonSyntaxException) {
             val error_message = WebMessage("Please use the WebMessage-Syntax: ${ex.message}", DefaultChannel.ERROR.name, "")
             session.remote.sendString(Gson().toJson(error_message))
