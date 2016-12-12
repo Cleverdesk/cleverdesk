@@ -26,9 +26,13 @@ class WebHandlerManager : WebHandler {
 
     /**
      * Redirect message to all handler which use [channel] as Channel.
+     * @return If the message has a valid channel.
      */
     override fun handleMessage(provider: WebResponseProvider, inSession: WebSession<*>, message: WebMessage) {
-        if (!handlerChannels.containsKey(message.channel)) return;
+        if (!handlerChannels.containsKey(message.channel)) {
+            provider.sendMessage(DefaultChannel.ERROR.name, "Channel is not registered.");
+            return
+        }
         for (handler in handlerChannels.get(message.channel)!!) {
             handler.handleMessage(provider, inSession, message)
         }

@@ -23,6 +23,7 @@ import net.cleverdesk.cleverdesk.plugin.Plugin
 import net.cleverdesk.cleverdesk.plugin.PluginDescription
 import net.cleverdesk.cleverdesk.plugin.PluginLoader
 import net.cleverdesk.cleverdesk.web.WebSocket
+import net.cleverdesk.cleverdesk.web.handlers.AuthenticationHandler
 import net.cleverdesk.cleverdesk.web.handlers.PageHandler
 import spark.Spark
 import java.io.File
@@ -114,6 +115,7 @@ class Launcher : Plugin() {
         //Start Web-Server(LAGACY) + WebSokcet ( Next Gen)
         // WebServer.start(this, port.toInt())
         WebSocket.handlerManager.registerHandler(PageHandler(this))
+        WebSocket.handlerManager.registerHandler(AuthenticationHandler(this))
         WebSocket.start(this, port.toInt())
 
     }
