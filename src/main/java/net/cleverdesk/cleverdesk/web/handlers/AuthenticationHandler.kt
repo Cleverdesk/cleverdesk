@@ -31,6 +31,7 @@ class AuthenticationHandler(launcher: Launcher) : WebHandler, Authentication(lau
                 inSession.user = null
                 provider.sendMessage(DefaultChannel.LOGOUT.name, "success")
             }
+
             DefaultChannel.APPROVE_TOKEN.name -> {
                 inSession.user = authUser(message.message.toString())
                 //message.user = provider.user

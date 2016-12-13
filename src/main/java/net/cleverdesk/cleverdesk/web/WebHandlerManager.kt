@@ -30,7 +30,7 @@ class WebHandlerManager : WebHandler {
      */
     override fun handleMessage(provider: WebResponseProvider, inSession: WebSession<*>, message: WebMessage) {
         if (!handlerChannels.containsKey(message.channel)) {
-            provider.sendMessage(DefaultChannel.ERROR.name, "Channel is not registered.");
+            provider.sendMessage(DefaultChannel.ERROR.name, handlerChannels.keys.toTypedArray());
             return
         }
         for (handler in handlerChannels.get(message.channel)!!) {
