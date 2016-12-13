@@ -45,7 +45,7 @@ class AuthenticationHandler(launcher: Launcher) : WebHandler, Authentication(lau
                 val map = message.message as Map<String, *>
                 if (map.containsKey("username") && map.containsKey("password") && map.containsKey("lifetime")) {
                     try {
-                        provider.sendMessage(DefaultChannel.GEN_TOKEN.name, generateToken(map.get("username") as String, map.get("password") as String, map.get("lifetime") as Int))
+                        provider.sendMessage(DefaultChannel.GEN_TOKEN.name, generateToken(map.get("username") as String, map.get("password") as String, (map.get("lifetime") as Double).toInt()))
 
                     } catch (e: Exception) {
                         provider.sendMessage(DefaultChannel.ERROR.name, e.message!!)
