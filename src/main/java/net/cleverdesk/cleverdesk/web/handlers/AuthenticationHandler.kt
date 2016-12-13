@@ -23,7 +23,7 @@ import net.cleverdesk.cleverdesk.web.http.Authentication
  */
 class AuthenticationHandler(launcher: Launcher) : WebHandler, Authentication(launcher) {
 
-    override val forChannels: Array<String> = arrayOf(DefaultChannel.APPROVE_TOKEN.name, DefaultChannel.APPROVE_TOKEN.name, DefaultChannel.LOGOUT.name)
+    override val forChannels: Array<String> = arrayOf(DefaultChannel.APPROVE_TOKEN.name, DefaultChannel.APPROVE_TOKEN.name, DefaultChannel.LOGOUT.name, DefaultChannel.GEN_TOKEN.name)
 
     override fun handleMessage(provider: WebResponseProvider, inSession: WebSession<*>, message: WebMessage) {
         when (message.channel) {
