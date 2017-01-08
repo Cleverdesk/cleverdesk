@@ -20,6 +20,7 @@ package net.cleverdesk.cleverdesk.ui
  * Supported in all frontends.
  * Mobile devices that are smaller then 5.4" will open a Modal in Full-Screen-Mode. (like [UI])
  */
+@Deprecated("Will be replaced with a new Response system.")
 class Modal : UI() {
     override val name: String = "Modal"
 }

@@ -16,9 +16,7 @@
 
 package net.cleverdesk.cleverdesk.ui
 
-/**
- * Created by bootslock on 20.04.16.
- */
+
 interface ComponentGroup : Component {
 
     public fun addComponent(component: Component)

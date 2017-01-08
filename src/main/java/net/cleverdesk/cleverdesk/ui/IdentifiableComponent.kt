@@ -19,7 +19,9 @@ import net.cleverdesk.cleverdesk.listener.ListenerRegistration
 import net.cleverdesk.cleverdesk.plugin.Response
 import java.util.*
 
-
+/**
+ * A [IdentifiableComponent] is used by other subclasses who requires an identification for [Listener]-registration for example.
+ */
 abstract class IdentifiableComponent : Component {
     public var identifer: String = UUID.randomUUID().toString()
     public var additionalResponse: Response? = null

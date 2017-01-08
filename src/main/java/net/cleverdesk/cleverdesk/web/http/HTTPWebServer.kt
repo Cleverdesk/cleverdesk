@@ -30,7 +30,7 @@ import spark.Spark.*
 import java.net.URLEncoder
 import java.util.*
 
-@Deprecated("")
+@Deprecated("Replaced by WebSocket-Server", ReplaceWith("WebSocket", "net.cleverdesk.cleverdesk.web.WebSocket"), DeprecationLevel.WARNING)
 object WebServer {
     @JvmStatic fun start(launcher: Launcher, port: Int) {
         val auth = Authentication(launcher)

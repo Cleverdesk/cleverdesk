@@ -37,9 +37,13 @@ abstract class DatabaseObject {
                 // println(field.name)
                 field.isAccessible = true
                 if (field.annotations.find({ a -> a.annotationClass.qualifiedName?.equals(Database::class.qualifiedName)!! }) != null) {
-
                     try {
-                        if (field.call(this) != null) fields.put(field.name, field.call(this)!!)
+                        //only add non-null fields
+                        if (field.call(this) != null) {
+                            fields.put(field.name, field.call(this)!!)
+
+                        }
+
                     } catch (e: Exception) {
                         //To few arguments passed! A mistake by the developer!
                         println(e.message)

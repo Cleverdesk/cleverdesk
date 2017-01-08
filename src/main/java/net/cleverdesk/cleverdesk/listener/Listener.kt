@@ -15,6 +15,13 @@
 
 package net.cleverdesk.cleverdesk.listener
 
+/**
+ * A [Listener] listens for the [Event] [E]. Theire could be mulitply listeners for one event.
+ * Listeners must be registered into an [IdentifiableComponent].
+ */
 interface Listener<E : Event> {
+    /**
+     * Will be executed if the [Event] of type [E] arrives from an [IdentifiableComponent].
+     */
     fun handleEvent(event: E)
 }

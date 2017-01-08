@@ -16,7 +16,12 @@ package net.cleverdesk.cleverdesk.web
 
 import net.cleverdesk.cleverdesk.User
 
+/**
+ * WebSession is a abstraction of a session of type [T]. With WebSession multiply types of APIs could be handled.
+ * Example: WebSocket or HTTP:80
+ */
 class WebSession<T>(session: T) {
+
     val session: T = session
     var user: User? = null
 

@@ -15,6 +15,11 @@
 
 package net.cleverdesk.cleverdesk.listener
 
-
+/**
+ * Manages all Listeners which are registered.
+ * @see Launcher
+ * @see Plugin
+ * @see IdentifiableComponent
+ */
 interface ListenerManager : MutableList<ListenerRegistration<*>> {}
 

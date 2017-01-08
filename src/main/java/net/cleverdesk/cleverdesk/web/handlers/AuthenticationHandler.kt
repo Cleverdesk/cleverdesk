@@ -27,11 +27,13 @@ class AuthenticationHandler(launcher: Launcher) : WebHandler, Authentication(lau
 
     override fun handleMessage(provider: WebResponseProvider, inSession: WebSession<*>, message: WebMessage) {
         when (message.channel) {
+        //Deletes the user from his/her session.
             DefaultChannel.LOGOUT.name -> {
                 inSession.user = null
                 provider.sendMessage(DefaultChannel.LOGOUT.name, "success")
             }
 
+        //Approves a token provided by the frontend to restore his session / user.
             DefaultChannel.APPROVE_TOKEN.name -> {
                 inSession.user = authUser(message.message.toString())
                 //message.user = provider.user
@@ -41,6 +43,7 @@ class AuthenticationHandler(launcher: Launcher) : WebHandler, Authentication(lau
                     provider.sendMessage(DefaultChannel.APPROVE_TOKEN.name, "success")
                 }
             }
+        //Used to login into a user account. lifetime in seconds.
             DefaultChannel.GEN_TOKEN.name -> {
                 val map = message.message as Map<String, *>
                 if (map.containsKey("username") && map.containsKey("password") && map.containsKey("lifetime")) {

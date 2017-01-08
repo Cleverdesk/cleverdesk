@@ -14,4 +14,7 @@
  */
 package net.cleverdesk.cleverdesk.listener
 
+/**
+ * A pair of the [event_type] and the for the eventtype registered [listener]. Is used to handle listener registrations without using reflection.
+ */
 data class ListenerRegistration<T : Event>(val listener: Listener<T>, val event_type: Class<T>);

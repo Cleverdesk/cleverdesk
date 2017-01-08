@@ -16,7 +16,7 @@ package net.cleverdesk.cleverdesk.ui
 
 import net.cleverdesk.cleverdesk.plugin.Response
 
-
+@Deprecated("Response System will be replaced with a new system.")
 class ReplaceResponse : Response {
     override val name: String = "Replace"
     private val components: MutableMap<String, IdentifiableComponent> = mutableMapOf()

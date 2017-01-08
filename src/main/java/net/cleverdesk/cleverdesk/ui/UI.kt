@@ -35,6 +35,7 @@ import java.util.*
  * The UI bundels all UI [Component]s on a [Page]/[net.cleverdesk.cleverdesk.web.Response].
  * It is by default an Full-Screen page.
  */
+@Deprecated("Will be replaced by a new Response system.")
 open class UI() : ComponentGroup, Response {
     /*override fun toJson(): String {
         return Gson().toJson(this)

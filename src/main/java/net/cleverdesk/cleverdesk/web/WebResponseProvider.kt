@@ -14,6 +14,9 @@
  */
 package net.cleverdesk.cleverdesk.web
 
+/**
+ * Provides a interface to send messages to sender.
+ */
 interface WebResponseProvider {
     fun sendMessage(channel: String, message: String)
     fun sendMessage(channel: String, message: Any)

@@ -15,8 +15,9 @@
 package net.cleverdesk.cleverdesk.web.http
 import com.google.gson.Gson
 /**
- * Created by jkuche on 23.04.16.
+ * Replaced by [WebMessage]
  */
+@Deprecated("Replaced with the new channel-based system.", ReplaceWith(expression = "WebMessage(body, CHANNEL, REQUEST_ID)", imports = "net.cleverdesk.cleverdesk.web.WebMessage"), DeprecationLevel.WARNING)
 class JSONResponse(status: Int, body: Any) {
     internal var status:Int
     internal var body:Any

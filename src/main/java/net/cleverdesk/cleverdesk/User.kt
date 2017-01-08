@@ -19,7 +19,7 @@ import net.cleverdesk.cleverdesk.plugin.Plugin
 import java.util.*
 
 /**
- * TODO
+ * A registered User. Could be used as a event trigger or as a [WebSession] user.
  */
 open class User(override val plugin: Plugin) : DatabaseObject() {
     @Database
@@ -36,14 +36,12 @@ open class User(override val plugin: Plugin) : DatabaseObject() {
     public open var uuid: String = UUID.randomUUID().toString()
 
 
+    /**
+     * @return Has the user the permission for [permission]?
+     */
     public fun hasPermission(permission: String): Boolean {
         //TODO Implement access and permission system!
-        print(username)
         return true
-    }
-
-    init {
-        print(toMap)
     }
 
     override val indices: Map<String, Any>

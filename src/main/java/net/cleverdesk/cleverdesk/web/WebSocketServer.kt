@@ -34,6 +34,9 @@ public class WebSocketServer() {
     private var sessions: MutableMap<Session, WebSession<Session>> = mutableMapOf()
 
 
+    /**
+     * Will be executed if a new session starts or connects.
+     */
     @OnWebSocketConnect
     open fun onConnect(session: Session) {
         sessions.put(session, WebSession(session))
@@ -41,6 +44,9 @@ public class WebSocketServer() {
 
     }
 
+    /**
+     * Will be executed if a socket closes his session.
+     */
     @OnWebSocketClose
     public open fun onClose(session: Session, statusCode: Int, reason: String) {
         sessions.remove(session)
@@ -60,22 +66,37 @@ public class WebSocketServer() {
                 sessions.put(session, WebSession(session))
             }
 
+            //Convert JSON-message to a WebMessage-object.
             val received_message = Gson().fromJson(message, WebMessage::class.java)
+            //Search a handler for [received_message]
             net.cleverdesk.cleverdesk.web.WebSocket.handlerManager.handleMessage(object : WebResponseProvider {
 
+                /**
+                 * Redirect [message] as JSON to the sender's [channel].
+                 */
                 override fun sendMessage(channel: String, message: Any) {
                     val msg = WebMessage(message, channel, received_message!!.request_id)
+
                     session.remote.sendString(Gson().toJson(msg))
                 }
 
+                /**
+                 * Redirect [message] to the sender's [channel].
+                 */
                 override fun sendMessage(channel: String, message: String) {
-                    val msg = WebMessage(message, channel, received_message!!.request_id)
+                    val msg = WebMessage(message = message, channel = channel, request_id = received_message!!.request_id)
                     session.remote.sendString(Gson().toJson(msg))
                 }
 
             }, sessions.get(session)!!, received_message)
         } catch (ex: JsonSyntaxException) {
+            //Message is not JSON-conform.
             val error_message = WebMessage("Please use the WebMessage-Syntax: ${ex.message}", DefaultChannel.ERROR.name, "")
+            session.remote.sendString(Gson().toJson(error_message))
+        } catch (ex: Exception) {
+
+            //Something else went wrong. Send error description to frontend.
+            val error_message = WebMessage("Unknown error: ${ex.message}", DefaultChannel.ERROR.name, "")
             session.remote.sendString(Gson().toJson(error_message))
         }
 

@@ -32,6 +32,7 @@ class PageHandler(launcher: Launcher) : WebHandler {
 
     override fun handleMessage(provider: WebResponseProvider, inSession: WebSession<*>, message: WebMessage) {
         when (message.channel) {
+        //All registered pages
             "pages" -> {
                 val pages: HashMap<String, String> = HashMap()
                 for (plugin in launcher.plugins) {
@@ -42,6 +43,7 @@ class PageHandler(launcher: Launcher) : WebHandler {
                 }
                 provider.sendMessage("pages", pages)
             }
+        //A specific page
             "page" -> {
                 val map = message.message as Map<String, String>
 

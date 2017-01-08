@@ -15,9 +15,19 @@
 package net.cleverdesk.cleverdesk
 
 /**
- * Created by schulerlabor on 21.06.16.
+ * Indicates the used Cleverdesk-Backend version.
  */
 object BuildProperties {
-    val VERSION: String = "0.0.3"
+    /**
+     * Versioning:
+     * a.b.c
+     * a = Release
+     * b = Candidate
+     * c = Milestone
+     */
+    val VERSION: String = "0.0.5"
+    /**
+     * Build-Status: PRE-ALPHA, ALPHA, BETA, MILESTONE, CANDIDATE, RELEASE
+     */
     val TYPE: String = "PRE-ALPHA"
 }

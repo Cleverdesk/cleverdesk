@@ -14,5 +14,11 @@
  */
 package net.cleverdesk.cleverdesk.web
 
+/**
+ * A webmessage is the communication format for Cleverdesk messages.
+ * @param message The data needed for execution.
+ * @param channel A command/channel for finding out which [WebHandler] should handle this [WebMessage].
+ * @param request_id A unique identification string provided by the frontend. Helps the frontend to identify the response.
+ */
 data class WebMessage(var message: Any, var channel: String, var request_id: String)
 
