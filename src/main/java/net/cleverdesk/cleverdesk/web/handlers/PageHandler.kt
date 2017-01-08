@@ -45,12 +45,13 @@ class PageHandler(launcher: Launcher) : WebHandler {
             "page" -> {
                 val map = message.message as Map<String, String>
 
-                val page = map.get("page")
-                val plugin = map.get("plugin");
+                val msgPage = map.get("page")
+                val msgPlugin = map.get("plugin")
+
                 for (plugin in launcher.plugins) {
-                    if (plugin.description != null && (plugin.description as PluginDescription).name.escape().equals(page, true)) {
+                    if (plugin.description != null && (plugin.description as PluginDescription).name.escape().equals(msgPlugin)) {
                         for (page in plugin.pages) {
-                            if (page.name.escape().equals(page)) {
+                            if (page.name.escape().equals(msgPage)) {
                                 val ui_req: UIRequest = object : UIRequest {
                                     override val attributes: Map<String, Any> = mapOf()
                                     override val response_target: Any = inSession
